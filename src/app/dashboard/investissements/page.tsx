@@ -7,13 +7,9 @@ import {
     Filter,
     Download,
     Calendar,
-    ChevronDown,
     ArrowUpRight,
-    ArrowDownRight,
     Clock,
-    CheckCircle,
-    XCircle,
-    AlertCircle
+    CheckCircle
 } from 'lucide-react'
 import Button from '@/components/ui/Button'
 import StatsCards from '../composants/StatsCards'
@@ -22,33 +18,34 @@ export default function InvestissementsPage() {
     const [filter, setFilter] = useState('all')
     const [selectedPeriod, setSelectedPeriod] = useState('30j')
 
+    // Correction : ajout de "as const" pour trend
     const stats = [
         {
             title: "Total Investi",
             value: "2 450 000 FCFA",
             change: "+15.3%",
-            trend: "up",
+            trend: "up" as const,
             icon: <TrendingUp className="w-6 h-6" />
         },
         {
             title: "Rendement Total",
             value: "342 500 FCFA",
             change: "+12.8%",
-            trend: "up",
+            trend: "up" as const,
             icon: <ArrowUpRight className="w-6 h-6" />
         },
         {
             title: "Investissements Actifs",
             value: "12",
             change: "+3",
-            trend: "up",
+            trend: "up" as const,
             icon: <CheckCircle className="w-6 h-6" />
         },
         {
             title: "Taux de Rendement",
             value: "14.2%",
             change: "+2.1%",
-            trend: "up",
+            trend: "up" as const,
             icon: <TrendingUp className="w-6 h-6" />
         }
     ]
@@ -158,7 +155,7 @@ export default function InvestissementsPage() {
                         <Download size={18} className="mr-2" />
                         Exporter
                     </Button>
-                    <Button>
+                    <Button variant="primary">  {/* Correction : ajout de variant="primary" */}
                         Nouvel Investissement
                     </Button>
                 </div>
@@ -172,28 +169,28 @@ export default function InvestissementsPage() {
                 <div className="flex flex-wrap gap-4 items-center justify-between">
                     <div className="flex space-x-2">
                         <Button
-                            variant={filter === 'all' ? 'default' : 'outline'}
+                            variant={filter === 'all' ? 'primary' : 'outline'}
                             size="sm"
                             onClick={() => setFilter('all')}
                         >
                             Tous
                         </Button>
                         <Button
-                            variant={filter === 'actif' ? 'default' : 'outline'}
+                            variant={filter === 'actif' ? 'primary' : 'outline'} 
                             size="sm"
                             onClick={() => setFilter('actif')}
                         >
                             Actifs
                         </Button>
                         <Button
-                            variant={filter === 'en_attente' ? 'default' : 'outline'}
+                            variant={filter === 'en_attente' ? 'primary' : 'outline'}
                             size="sm"
                             onClick={() => setFilter('en_attente')}
                         >
                             En attente
                         </Button>
                         <Button
-                            variant={filter === 'termine' ? 'default' : 'outline'}
+                            variant={filter === 'termine' ? 'primary' : 'outline'} 
                             size="sm"
                             onClick={() => setFilter('termine')}
                         >

@@ -1,10 +1,10 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { 
-  Wallet, 
-  TrendingUp, 
-  Clock, 
+import {
+  Wallet,
+  TrendingUp,
+  Clock,
   CheckCircle,
   ArrowUpRight,
   ArrowDownRight,
@@ -14,33 +14,34 @@ import Button from '@/components/ui/Button'
 import StatsCards from './composants/StatsCards'
 
 export default function DashboardPage() {
+  // Correction : ajout de "as const" pour trend
   const stats = [
     {
       title: "Solde Total",
       value: "125 000 FCFA",
       change: "+12.5%",
-      trend: "up",
+      trend: "up" as const,
       icon: <Wallet className="w-6 h-6" />
     },
     {
       title: "Investissements",
       value: "85 000 FCFA",
       change: "+8.2%",
-      trend: "up",
+      trend: "up" as const,
       icon: <TrendingUp className="w-6 h-6" />
     },
     {
       title: "En Attente",
       value: "15 000 FCFA",
       change: "-2.3%",
-      trend: "down",
+      trend: "down" as const,
       icon: <Clock className="w-6 h-6" />
     },
     {
       title: "Projets Financés",
       value: "3",
       change: "+1",
-      trend: "up",
+      trend: "up" as const,
       icon: <CheckCircle className="w-6 h-6" />
     }
   ]
@@ -108,7 +109,7 @@ export default function DashboardPage() {
             Voici un résumé de vos investissements
           </p>
         </div>
-        <Button>
+        <Button variant="primary">  {/* Correction : ajout de variant="primary" */}
           Nouvel Investissement
         </Button>
       </div>
@@ -119,7 +120,7 @@ export default function DashboardPage() {
       {/* Main Grid */}
       <div className="grid lg:grid-cols-3 gap-6">
         {/* Recent Investments */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.2 }}
@@ -131,7 +132,7 @@ export default function DashboardPage() {
               Voir tout
             </Button>
           </div>
-          
+
           <div className="space-y-4">
             {recentInvestments.map((inv, index) => (
               <motion.div
@@ -147,10 +148,9 @@ export default function DashboardPage() {
                 </div>
                 <div className="text-right">
                   <p className="font-semibold">{inv.amount}</p>
-                  <p className={cn(
-                    "text-sm",
-                    inv.status === "Actif" ? "text-green-600" : "text-yellow-600"
-                  )}>
+                  <p className={
+                    inv.status === "Actif" ? "text-sm text-green-600" : "text-sm text-yellow-600"
+                  }>
                     {inv.status}
                   </p>
                 </div>
@@ -166,14 +166,14 @@ export default function DashboardPage() {
         </motion.div>
 
         {/* Quick Actions */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.2 }}
           className="bg-white rounded-xl shadow-sm p-6"
         >
           <h2 className="text-xl font-semibold mb-4">Actions Rapides</h2>
-          
+
           <div className="space-y-3">
             <Button variant="outline" className="w-full justify-start">
               <Eye className="mr-2 w-4 h-4" />
@@ -197,7 +197,7 @@ export default function DashboardPage() {
             <p className="text-sm text-green-600 mt-1">
               Prévu le 25 Jan 2024
             </p>
-            <Button size="sm" className="w-full mt-4">
+            <Button variant="primary" size="sm" className="w-full mt-4">
               Effectuer maintenant
             </Button>
           </div>
@@ -205,7 +205,7 @@ export default function DashboardPage() {
       </div>
 
       {/* Projects Section */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4 }}
@@ -234,14 +234,14 @@ export default function DashboardPage() {
                   {project.investors} invest.
                 </span>
               </div>
-              
+
               <div className="mt-4">
                 <div className="flex justify-between text-sm mb-1">
                   <span>Progression</span>
                   <span className="font-semibold">{project.progress}%</span>
                 </div>
                 <div className="w-full bg-gray-200 rounded-full h-2">
-                  <motion.div 
+                  <motion.div
                     initial={{ width: 0 }}
                     animate={{ width: `${project.progress}%` }}
                     transition={{ duration: 1, delay: 0.5 }}
@@ -253,7 +253,7 @@ export default function DashboardPage() {
                   <span className="text-gray-500">{project.target}</span>
                 </div>
               </div>
-              
+
               <Button variant="outline" size="sm" className="w-full mt-4">
                 Investir
               </Button>
@@ -263,8 +263,4 @@ export default function DashboardPage() {
       </motion.div>
     </div>
   )
-}
-
-function cn(...classes: any[]) {
-  return classes.filter(Boolean).join(' ')
 }
