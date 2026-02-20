@@ -88,7 +88,7 @@ export default function FonctionnementPage() {
   ]
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-green-50 to-white">
+    <div className="min-h-screen bg-linear-to-b from-green-50 to-white">
       {/* Hero Section */}
       <section className="relative py-20 overflow-hidden">
         <Container>
@@ -142,13 +142,13 @@ export default function FonctionnementPage() {
               >
                 {/* Connection line (except for last item) */}
                 {index < steps.length - 1 && (
-                  <div className="absolute left-12 top-24 bottom-0 w-0.5 bg-gradient-to-b from-green-300 to-transparent hidden md:block" />
+                  <div className="absolute left-12 top-24 bottom-0 w-0.5 bg-linear-to-b from-green-300 to-transparent hidden md:block" />
                 )}
                 
                 <div className="flex flex-col md:flex-row gap-8 items-start">
                   {/* Step Number & Icon */}
-                  <div className="flex-shrink-0">
-                    <div className={`w-24 h-24 bg-gradient-to-br ${step.color} rounded-2xl flex items-center justify-center text-white shadow-lg`}>
+                  <div className="shrink-0">
+                    <div className={`w-24 h-24 bg-linear-to-br ${step.color} rounded-2xl flex items-center justify-center text-white shadow-lg`}>
                       {step.icon}
                     </div>
                   </div>
@@ -164,7 +164,7 @@ export default function FonctionnementPage() {
                     <div className="grid sm:grid-cols-2 gap-3">
                       {step.details.map((detail, idx) => (
                         <div key={idx} className="flex items-center space-x-2">
-                          <CheckCircle size={16} className="text-green-600 flex-shrink-0" />
+                          <CheckCircle size={16} className="text-green-600 shrink-0" />
                           <span className="text-sm text-gray-700">{detail}</span>
                         </div>
                       ))}
@@ -216,7 +216,7 @@ export default function FonctionnementPage() {
       {/* FAQ Teaser */}
       <section className="py-20">
         <Container>
-          <div className="bg-gradient-to-br from-green-600 to-green-700 rounded-3xl p-12 text-center text-white">
+          <div className="bg-linear-to-br from-green-600 to-green-700 rounded-3xl p-12 text-center text-white">
             <h2 className="text-3xl font-bold mb-4">
               Des questions ?
             </h2>

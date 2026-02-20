@@ -4,6 +4,7 @@ import { forwardRef, InputHTMLAttributes, ReactNode, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Eye, EyeOff, AlertCircle, CheckCircle } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { input } from 'framer-motion/client'
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string

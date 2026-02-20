@@ -4,6 +4,7 @@ import { ReactNode, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { button } from 'framer-motion/client'
 
 interface ModalProps {
   isOpen: boolean

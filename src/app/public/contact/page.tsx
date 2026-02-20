@@ -97,7 +97,7 @@ export default function ContactPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-green-50 to-white">
+    <div className="min-h-screen bg-linear-to-b from-green-50 to-white">
       {/* Hero Section */}
       <section className="relative py-20 overflow-hidden">
         <Container>
@@ -137,7 +137,7 @@ export default function ContactPage() {
               >
                 <Link href={info.action} className="block h-full">
                   <Card className="h-full text-center group">
-                    <div className={`w-16 h-16 bg-gradient-to-br ${info.color} rounded-2xl flex items-center justify-center text-white mx-auto mb-4 group-hover:scale-110 transition-transform`}>
+                    <div className={`w-16 h-16 bg-linear-to-br ${info.color} rounded-2xl flex items-center justify-center text-white mx-auto mb-4 group-hover:scale-110 transition-transform`}>
                       {info.icon}
                     </div>
                     <h3 className="text-lg font-semibold text-gray-900 mb-3">
@@ -267,7 +267,7 @@ export default function ContactPage() {
               <FadeIn direction="right">
                 <Card className="h-full">
                   {/* Map Placeholder */}
-                  <div className="h-64 bg-gradient-to-br from-green-500 to-green-600 rounded-xl mb-6 flex items-center justify-center text-white">
+                  <div className="h-64 bg-linear-to-br from-green-500 to-green-600 rounded-xl mb-6 flex items-center justify-center text-white">
                     <div className="text-center">
                       <MapPin size={48} className="mx-auto mb-2" />
                       <p className="text-lg font-semibold">OGIAES</p>
@@ -363,7 +363,7 @@ export default function ContactPage() {
               >
                 <Card className="p-6">
                   <h3 className="text-lg font-semibold text-gray-900 mb-2 flex items-start">
-                    <HelpCircle size={20} className="text-green-600 mr-2 flex-shrink-0 mt-1" />
+                    <HelpCircle size={20} className="text-green-600 mr-2 shrink-0 mt-1" />
                     {item.question}
                   </h3>
                   <p className="text-gray-600 ml-8">
@@ -388,7 +388,7 @@ export default function ContactPage() {
       </section>
 
       {/* Newsletter */}
-      <section className="py-20 bg-gradient-to-br from-green-600 to-green-700">
+      <section className="py-20 bg-linear-to-br from-green-600 to-green-700">
         <Container>
           <div className="text-center text-white max-w-2xl mx-auto">
             <h2 className="text-3xl font-bold mb-4">
