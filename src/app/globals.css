@@ -3,6 +3,17 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  
+  /* Couleurs du logo - Version plus claire */
+  --primary: #2C5F7C;      /* Bleu moyen (plus clair que #1B3B4F) */
+  --secondary: #D4AF37;    /* Doré (inchangé) */
+  --accent: #4A7C9C;       /* Bleu clair (pour les textes secondaires) */
+  --light: #F5F0E6;        /* Beige clair (inchangé) */
+  --dark: #1B3B4F;         /* Bleu foncé (pour les contrastes forts) */
+  
+  /* Nouveaux bleus plus doux */
+  --blue-soft: #6B9AB8;    /* Bleu très doux pour les fonds */
+  --blue-light: #E6F0F7;   /* Bleu très clair pour les hover */
 }
 
 @theme inline {
@@ -16,6 +27,11 @@
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+    --primary: #4A7C9C;
+    --secondary: #F5E7B2;
+    --accent: #6B9AB8;
+    --light: #1a1a1a;
+    --dark: #2C5F7C;
   }
 }
 
@@ -25,7 +41,7 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-  /* Scrollbar personnalisée */
+  /* Scrollbar personnalisée - modifiée avec les couleurs */
   ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
@@ -33,10 +49,16 @@ body {
 
   ::-webkit-scrollbar-track {
     @apply bg-gray-100;
+    background: var(--light) !important;
   }
 
   ::-webkit-scrollbar-thumb {
     @apply bg-gray-300 rounded-full hover:bg-gray-400 transition-colors;
+    background: var(--primary) !important;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--secondary) !important;
   }
 
 
@@ -54,6 +76,23 @@ body {
   /* Styles pour les boutons */
   .btn-gradient {
     @apply bg-gradient-to-r from-green-500 to-green-600 text-white hover:from-green-600 hover:to-green-700;
+  }
+  
+  /* Nouveaux boutons avec les couleurs du logo */
+  .btn-primary {
+    background: var(--primary);
+    color: white;
+    @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5;
+  }
+  
+  .btn-primary:hover {
+    background: var(--accent);
+  }
+  
+  .btn-secondary {
+    background: var(--secondary);
+    color: var(--dark);
+    @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5;
   }
 
   /* Styles pour les badges */
@@ -75,6 +114,17 @@ body {
 
   .badge-info {
     @apply bg-blue-100 text-blue-800;
+  }
+  
+  /* Nouveaux badges avec couleurs du logo */
+  .badge-primary {
+    background: var(--primary);
+    color: white;
+  }
+  
+  .badge-secondary {
+    background: var(--secondary);
+    color: var(--dark);
   }
 }
 
@@ -120,6 +170,21 @@ body {
   .text-gradient {
     @apply bg-clip-text text-transparent bg-gradient-to-r from-green-600 to-green-500;
   }
+  
+  /* Nouveaux effets de texte */
+  .text-gradient-primary {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  
+  .text-gradient-secondary {
+    background: linear-gradient(135deg, var(--secondary) 0%, #F5E7B2 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
 
   /* Effets de fond */
   .bg-grid {
@@ -132,6 +197,69 @@ body {
   .bg-dots {
     background-image: radial-gradient(rgba(0, 0, 0, 0.1) 1px, transparent 1px);
     background-size: 20px 20px;
+  }
+  
+  /* Nouveaux fonds */
+  .bg-gradient-primary {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+  }
+  
+  .bg-gradient-secondary {
+    background: linear-gradient(135deg, var(--secondary) 0%, #F5E7B2 100%);
+  }
+  
+  .bg-soft-blue {
+    background: var(--blue-light);
+  }
+
+  /* Ombres personnalisées */
+  .shadow-primary {
+    box-shadow: 0 4px 20px rgba(44, 95, 124, 0.15);
+  }
+  
+  .shadow-secondary {
+    box-shadow: 0 4px 20px rgba(212, 175, 55, 0.15);
+  }
+  
+  .shadow-soft-blue {
+    box-shadow: 0 4px 20px rgba(74, 124, 156, 0.1);
+  }
+  
+  /* Couleurs utilitaires */
+  .bg-primary {
+    background-color: var(--primary);
+  }
+  
+  .bg-secondary {
+    background-color: var(--secondary);
+  }
+  
+  .bg-light {
+    background-color: var(--light);
+  }
+  
+  .bg-soft {
+    background-color: var(--blue-soft);
+  }
+  
+  .text-primary {
+    color: var(--primary);
+  }
+  
+  .text-secondary {
+    color: var(--secondary);
+  }
+  
+  .text-accent {
+    color: var(--accent);
+  }
+  
+  .border-primary {
+    border-color: var(--primary);
+  }
+  
+  .border-secondary {
+    border-color: var(--secondary);
   }
 }
 

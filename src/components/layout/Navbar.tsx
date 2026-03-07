@@ -3,6 +3,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { motion, AnimatePresence, Variants } from 'framer-motion'
 import { Menu, X, ChevronDown } from 'lucide-react'
 import Button from '../ui/Button'
@@ -50,7 +51,17 @@ export default function Navbar() {
     { label: 'Contact', href: '/public/contact' }
   ]
 
-  // CORRECTION : Types corrects pour les variantes Framer Motion
+  // Couleurs du logo
+  const colors = {
+    primary: '#1B3B4F',    // Bleu foncé du logo
+    secondary: '#D4AF37',  // Doré du logo
+    accent: '#2C5F7C',     // Bleu moyen
+    light: '#F5F0E6',      // Beige clair
+    dark: '#0A1A24',       // Bleu très foncé
+    white: '#FFFFFF',
+    gray: '#6B7280'
+  }
+
   const navVariants: Variants = {
     hidden: {
       y: -100
@@ -229,10 +240,13 @@ export default function Navbar() {
       className={cn(
         'fixed top-0 w-full z-50 transition-all duration-500',
         scrolled
-          ? 'bg-white/95 backdrop-blur-lg shadow-lg py-2'
+          ? `bg-[${colors.white}]/95 backdrop-blur-lg shadow-lg py-2`
           : 'bg-transparent py-4',
-        isOpen && 'bg-white'
+        isOpen && `bg-[${colors.white}]`
       )}
+      style={{
+        backgroundColor: scrolled ? `${colors.white}F2` : 'transparent'
+      }}
     >
       <Container>
         <div className="flex items-center justify-between">
@@ -243,17 +257,20 @@ export default function Navbar() {
             animate="animate"
             whileHover="hover"
           >
-            <Link href="/public/home" className="flex items-center space-x-2 group">
+            <Link href="/public/home" className="flex items-center space-x-3 group">
               <motion.div
                 whileHover={{ rotate: 360 }}
                 transition={{ duration: 0.5 }}
-                className="w-10 h-10 bg-linear-to-br from-green-500 to-green-600 rounded-lg flex items-center justify-center shadow-lg group-hover:shadow-green-500/30"
+                className="relative w-20 h-15 overflow-hidden"
               >
-                <span className="text-white font-bold text-xl">O</span>
+                <Image
+                  src="/images/logot.png"
+                  alt="OGIAES Logo"
+                  fill
+                  className="object-contain"
+                  priority
+                />
               </motion.div>
-              <span className="font-bold text-xl text-gray-900 group-hover:text-green-600 transition-colors">
-                OGIAES
-              </span>
             </Link>
           </motion.div>
 
@@ -273,7 +290,14 @@ export default function Navbar() {
               >
                 {item.dropdown ? (
                   <>
-                    <button className="flex items-center space-x-1 px-4 py-2 text-gray-600 hover:text-green-600 transition-colors rounded-lg hover:bg-green-50">
+                    <button
+                      className="flex items-center space-x-1 px-4 py-2 transition-colors rounded-lg"
+                      style={{
+                        color: colors.primary,
+                      }}
+                      onMouseEnter={(e) => e.currentTarget.style.color = colors.secondary}
+                      onMouseLeave={(e) => e.currentTarget.style.color = colors.primary}
+                    >
                       <span>{item.label}</span>
                       <motion.div
                         variants={chevronVariants}
@@ -290,7 +314,11 @@ export default function Navbar() {
                           initial="hidden"
                           animate="visible"
                           exit="exit"
-                          className="absolute top-full left-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden"
+                          className="absolute top-full left-0 mt-2 w-56 rounded-xl shadow-xl overflow-hidden"
+                          style={{
+                            backgroundColor: colors.white,
+                            borderColor: colors.light
+                          }}
                         >
                           {item.dropdown.map((subItem, idx) => (
                             <motion.div
@@ -301,7 +329,16 @@ export default function Navbar() {
                             >
                               <Link
                                 href={subItem.href}
-                                className="block px-4 py-3 text-gray-600 hover:bg-green-50 hover:text-green-600 transition-colors"
+                                className="block px-4 py-3 transition-colors"
+                                style={{ color: colors.primary }}
+                                onMouseEnter={(e) => {
+                                  e.currentTarget.style.backgroundColor = colors.light
+                                  e.currentTarget.style.color = colors.secondary
+                                }}
+                                onMouseLeave={(e) => {
+                                  e.currentTarget.style.backgroundColor = 'transparent'
+                                  e.currentTarget.style.color = colors.primary
+                                }}
                               >
                                 {subItem.label}
                               </Link>
@@ -314,7 +351,16 @@ export default function Navbar() {
                 ) : (
                   <Link
                     href={item.href}
-                    className="block px-4 py-2 text-gray-600 hover:text-green-600 transition-colors rounded-lg hover:bg-green-50"
+                    className="block px-4 py-2 transition-colors rounded-lg"
+                    style={{ color: colors.primary }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = colors.light
+                      e.currentTarget.style.color = colors.secondary
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = 'transparent'
+                      e.currentTarget.style.color = colors.primary
+                    }}
                   >
                     {item.label}
                   </Link>
@@ -334,6 +380,10 @@ export default function Navbar() {
               <Button
                 variant="ghost"
                 className="hover:scale-105 transition-transform"
+                style={{
+                  color: colors.primary,
+                  '--hover-color': colors.secondary
+                } as any}
               >
                 Se connecter
               </Button>
@@ -343,7 +393,14 @@ export default function Navbar() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <Button className="shadow-lg hover:shadow-green-500/30">
+                <Button
+                  className="shadow-lg"
+                  style={{
+                    backgroundColor: colors.secondary,
+                    color: colors.white,
+                    '--hover-bg': colors.primary
+                  } as any}
+                >
                   S'inscrire
                 </Button>
               </motion.div>
@@ -354,7 +411,8 @@ export default function Navbar() {
           <motion.button
             whileTap={{ scale: 0.9 }}
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 rounded-lg hover:bg-gray-100 relative z-50"
+            className="md:hidden p-2 rounded-lg relative z-50"
+            style={{ color: colors.primary }}
             aria-label="Menu"
           >
             <AnimatePresence mode="wait">
@@ -401,14 +459,26 @@ export default function Navbar() {
                   >
                     {item.dropdown ? (
                       <div className="space-y-2">
-                        <div className="px-4 py-2 font-semibold text-gray-700">
+                        <div
+                          className="px-4 py-2 font-semibold"
+                          style={{ color: colors.primary }}
+                        >
                           {item.label}
                         </div>
                         {item.dropdown.map((subItem) => (
                           <Link
                             key={subItem.href}
                             href={subItem.href}
-                            className="block pl-8 py-2 text-gray-600 hover:text-green-600 hover:bg-green-50 rounded-lg transition-colors"
+                            className="block pl-8 py-2 rounded-lg transition-colors"
+                            style={{ color: colors.primary }}
+                            onMouseEnter={(e) => {
+                              e.currentTarget.style.backgroundColor = colors.light
+                              e.currentTarget.style.color = colors.secondary
+                            }}
+                            onMouseLeave={(e) => {
+                              e.currentTarget.style.backgroundColor = 'transparent'
+                              e.currentTarget.style.color = colors.primary
+                            }}
                             onClick={() => setIsOpen(false)}
                           >
                             {subItem.label}
@@ -418,7 +488,16 @@ export default function Navbar() {
                     ) : (
                       <Link
                         href={item.href}
-                        className="block px-4 py-3 text-gray-600 hover:text-green-600 hover:bg-green-50 rounded-lg transition-colors"
+                        className="block px-4 py-3 rounded-lg transition-colors"
+                        style={{ color: colors.primary }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.backgroundColor = colors.light
+                          e.currentTarget.style.color = colors.secondary
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.backgroundColor = 'transparent'
+                          e.currentTarget.style.color = colors.primary
+                        }}
                         onClick={() => setIsOpen(false)}
                       >
                         {item.label}
@@ -429,15 +508,31 @@ export default function Navbar() {
 
                 <motion.div
                   variants={mobileItemVariants}
-                  className="pt-6 space-y-3 border-t border-gray-100"
+                  className="pt-6 space-y-3"
+                  style={{ borderColor: colors.light }}
                 >
                   <Link href="/auth/login" className="block" onClick={() => setIsOpen(false)}>
-                    <Button variant="outline" className="w-full hover:scale-[1.02] transition-transform">
+                    <Button
+                      variant="outline"
+                      className="w-full hover:scale-[1.02] transition-transform"
+                      style={{
+                        color: colors.primary,
+                        borderColor: colors.primary,
+                        '--hover-bg': colors.light
+                      } as any}
+                    >
                       Se connecter
                     </Button>
                   </Link>
                   <Link href="/auth/register" className="block" onClick={() => setIsOpen(false)}>
-                    <Button className="w-full hover:scale-[1.02] transition-transform shadow-lg">
+                    <Button
+                      className="w-full hover:scale-[1.02] transition-transform shadow-lg"
+                      style={{
+                        backgroundColor: colors.secondary,
+                        color: colors.white,
+                        '--hover-bg': colors.primary
+                      } as any}
+                    >
                       S'inscrire
                     </Button>
                   </Link>

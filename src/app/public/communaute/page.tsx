@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { 
+import {
   Users,
   MessageCircle,
   Calendar,
@@ -24,14 +24,18 @@ import Button from '@/components/ui/Button'
 import Container from '@/components/layout/Container'
 import Card from '@/components/ui/Card'
 import FadeIn from '@/components/animations/FadeIn'
-import { cn } from '@/lib/utils'
+
+// Fonction cn simple
+const cn = (...classes: (string | undefined | false)[]) => {
+  return classes.filter(Boolean).join(' ')
+}
 
 export default function CommunautePage() {
   const stats = [
-    { value: '50 000+', label: 'Membres actifs', icon: <Users className="w-6 h-6" /> },
-    { value: '500+', label: 'Projets financés', icon: <TrendingUp className="w-6 h-6" /> },
-    { value: '3 000+', label: 'Discussions', icon: <MessageCircle className="w-6 h-6" /> },
-    { value: '15+', label: 'Événements/an', icon: <Calendar className="w-6 h-6" /> }
+    { value: '50 000+', label: 'Membres actifs', icon: <Users className="w-6 h-6" />, color: '#1B3B4F' },
+    { value: '500+', label: 'Projets financés', icon: <TrendingUp className="w-6 h-6" />, color: '#2C5F7C' },
+    { value: '3 000+', label: 'Discussions', icon: <MessageCircle className="w-6 h-6" />, color: '#4A7C9C' },
+    { value: '15+', label: 'Événements/an', icon: <Calendar className="w-6 h-6" />, color: '#6B9AB8' }
   ]
 
   const testimonials = [
@@ -170,7 +174,9 @@ export default function CommunautePage() {
   ]
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-green-50 to-white">
+    <div className="min-h-screen" style={{
+      background: 'linear-gradient(to bottom, #F5F0E6, white)'
+    }}>
       {/* Hero Section */}
       <section className="relative py-20 overflow-hidden">
         <Container>
@@ -180,25 +186,39 @@ export default function CommunautePage() {
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 transition={{ delay: 0.2, type: 'spring' }}
-                className="inline-flex items-center justify-center w-20 h-20 bg-green-100 rounded-2xl mb-6"
+                className="inline-flex items-center justify-center w-20 h-20 rounded-2xl mb-6"
+                style={{
+                  backgroundColor: '#F5F0E6',
+                  boxShadow: '0 10px 25px -5px rgba(212, 175, 55, 0.2)'
+                }}
               >
-                <Users className="w-10 h-10 text-green-600" />
+                <Users className="w-10 h-10" style={{ color: '#D4AF37' }} />
               </motion.div>
-              <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+
+              <h1 className="text-4xl md:text-5xl font-bold mb-4" style={{ color: '#1B3B4F' }}>
                 Communauté OGIAES
               </h1>
-              <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+
+              <p className="text-xl mb-8 max-w-2xl mx-auto" style={{ color: '#4A7C9C' }}>
                 Rejoignez une communauté passionnée qui construit ensemble l'avenir économique de l'AES
               </p>
+
               <div className="flex flex-wrap gap-4 justify-center">
                 <Link href="/auth/register">
-                  <Button size="lg">
+                  <Button
+                    size="lg"
+                    style={{ backgroundColor: '#D4AF37', color: '#1B3B4F' }}
+                  >
                     Rejoindre la communauté
                     <UserPlus className="ml-2 w-5 h-5" />
                   </Button>
                 </Link>
                 <Link href="/communaute/forum">
-                  <Button variant="outline" size="lg">
+                  <Button
+                    variant="outline"
+                    size="lg"
+                    style={{ borderColor: '#2C5F7C', color: '#2C5F7C' }}
+                  >
                     Explorer le forum
                     <MessageCircle className="ml-2 w-4 h-4" />
                   </Button>
@@ -220,13 +240,23 @@ export default function CommunautePage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="bg-white rounded-xl p-6 text-center shadow-sm border border-gray-100"
+                className="bg-white rounded-xl p-6 text-center border"
+                style={{
+                  borderColor: '#F5F0E6',
+                  boxShadow: '0 4px 20px rgba(27, 59, 79, 0.05)'
+                }}
               >
-                <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center text-green-600 mx-auto mb-3">
+                <div
+                  className="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3"
+                  style={{
+                    backgroundColor: '#F5F0E6',
+                    color: stat.color
+                  }}
+                >
                   {stat.icon}
                 </div>
-                <div className="text-2xl font-bold text-gray-900 mb-1">{stat.value}</div>
-                <div className="text-sm text-gray-600">{stat.label}</div>
+                <div className="text-2xl font-bold mb-1" style={{ color: '#1B3B4F' }}>{stat.value}</div>
+                <div className="text-sm" style={{ color: '#4A7C9C' }}>{stat.label}</div>
               </motion.div>
             ))}
           </div>
@@ -237,10 +267,10 @@ export default function CommunautePage() {
       <section className="py-20">
         <Container>
           <FadeIn>
-            <h2 className="text-3xl font-bold text-center text-gray-900 mb-4">
+            <h2 className="text-3xl font-bold text-center mb-4" style={{ color: '#1B3B4F' }}>
               Ils nous font confiance
             </h2>
-            <p className="text-xl text-gray-600 text-center mb-12 max-w-2xl mx-auto">
+            <p className="text-xl text-center mb-12 max-w-2xl mx-auto" style={{ color: '#4A7C9C' }}>
               Découvrez les témoignages de membres de la communauté
             </p>
           </FadeIn>
@@ -257,50 +287,55 @@ export default function CommunautePage() {
                 <Card className="h-full">
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex items-center space-x-3">
-                      <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center text-white font-bold text-lg">
+                      <div
+                        className="w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-lg"
+                        style={{
+                          background: 'linear-gradient(135deg, #1B3B4F 0%, #2C5F7C 100%)'
+                        }}
+                      >
                         {testimonial.avatar}
                       </div>
                       <div>
-                        <h3 className="font-semibold text-gray-900">{testimonial.name}</h3>
-                        <p className="text-sm text-gray-500">{testimonial.role}</p>
-                        <p className="text-xs text-gray-400 flex items-center mt-1">
+                        <h3 className="font-semibold" style={{ color: '#1B3B4F' }}>{testimonial.name}</h3>
+                        <p className="text-sm" style={{ color: '#4A7C9C' }}>{testimonial.role}</p>
+                        <p className="text-xs flex items-center mt-1" style={{ color: '#6B9AB8' }}>
                           <MapPin size={12} className="mr-1" />
                           {testimonial.location}
                         </p>
                       </div>
                     </div>
-                    <div className="flex text-yellow-400">
+                    <div className="flex" style={{ color: '#D4AF37' }}>
                       {[...Array(testimonial.rating)].map((_, i) => (
                         <Star key={i} size={16} fill="currentColor" />
                       ))}
                     </div>
                   </div>
-                  
-                  <p className="text-gray-700 mb-4 italic">"{testimonial.content}"</p>
-                  
-                  <div className="flex flex-wrap gap-2 text-sm text-gray-600 border-t border-gray-100 pt-4">
+
+                  <p className="mb-4 italic" style={{ color: '#2C5F7C' }}>"{testimonial.content}"</p>
+
+                  <div className="flex flex-wrap gap-2 text-sm border-t pt-4" style={{ borderColor: '#F5F0E6' }}>
                     {'invested' in testimonial && (
                       <>
-                        <span className="bg-green-50 text-green-700 px-2 py-1 rounded-full">
+                        <span className="px-2 py-1 rounded-full" style={{ backgroundColor: '#F5F0E6', color: '#1B3B4F' }}>
                           Investi: {testimonial.invested}
                         </span>
-                        <span className="bg-blue-50 text-blue-700 px-2 py-1 rounded-full">
+                        <span className="px-2 py-1 rounded-full" style={{ backgroundColor: '#F5F0E6', color: '#1B3B4F' }}>
                           {testimonial.projects} projets
                         </span>
                       </>
                     )}
                     {'funded' in testimonial && (
                       <>
-                        <span className="bg-green-50 text-green-700 px-2 py-1 rounded-full">
+                        <span className="px-2 py-1 rounded-full" style={{ backgroundColor: '#F5F0E6', color: '#1B3B4F' }}>
                           Collecté: {testimonial.funded}
                         </span>
-                        <span className="bg-blue-50 text-blue-700 px-2 py-1 rounded-full">
+                        <span className="px-2 py-1 rounded-full" style={{ backgroundColor: '#F5F0E6', color: '#1B3B4F' }}>
                           {testimonial.investors} investisseurs
                         </span>
                       </>
                     )}
                     {'expertise' in testimonial && (
-                      <span className="bg-purple-50 text-purple-700 px-2 py-1 rounded-full">
+                      <span className="px-2 py-1 rounded-full" style={{ backgroundColor: '#F5F0E6', color: '#1B3B4F' }}>
                         {testimonial.expertise}
                       </span>
                     )}
@@ -317,11 +352,11 @@ export default function CommunautePage() {
         <Container>
           <div className="flex justify-between items-center mb-8">
             <div>
-              <h2 className="text-2xl font-bold text-gray-900">Forum de discussion</h2>
-              <p className="text-gray-600">Échangez avec la communauté</p>
+              <h2 className="text-2xl font-bold" style={{ color: '#1B3B4F' }}>Forum de discussion</h2>
+              <p style={{ color: '#4A7C9C' }}>Échangez avec la communauté</p>
             </div>
             <Link href="/communaute/forum">
-              <Button variant="ghost">
+              <Button variant="ghost" style={{ color: '#2C5F7C' }}>
                 Voir tout
                 <ChevronRight className="ml-1 w-4 h-4" />
               </Button>
@@ -344,27 +379,27 @@ export default function CommunautePage() {
                         <div className="flex items-center space-x-2 mb-2">
                           <span className={cn(
                             "px-2 py-0.5 rounded-full text-xs font-medium",
-                            topic.category === 'Agriculture' && "bg-green-100 text-green-700",
-                            topic.category === 'Témoignages' && "bg-blue-100 text-blue-700",
-                            topic.category === 'Conseils' && "bg-purple-100 text-purple-700",
-                            topic.category === 'Annonces' && "bg-orange-100 text-orange-700"
+                            topic.category === 'Agriculture' && "bg-[#1B3B4F] text-white",
+                            topic.category === 'Témoignages' && "bg-[#2C5F7C] text-white",
+                            topic.category === 'Conseils' && "bg-[#4A7C9C] text-white",
+                            topic.category === 'Annonces' && "bg-[#D4AF37] text-[#1B3B4F]"
                           )}>
                             {topic.category}
                           </span>
                           {topic.pinned && (
-                            <span className="px-2 py-0.5 bg-gray-100 text-gray-600 rounded-full text-xs">
+                            <span className="px-2 py-0.5 rounded-full text-xs" style={{ backgroundColor: '#F5F0E6', color: '#1B3B4F' }}>
                               Épinglé
                             </span>
                           )}
                         </div>
-                        <h3 className="font-semibold text-gray-900 mb-1 group-hover:text-green-600 transition-colors">
+                        <h3 className="font-semibold mb-1 group-hover:text-[#D4AF37] transition-colors" style={{ color: '#1B3B4F' }}>
                           {topic.title}
                         </h3>
-                        <p className="text-sm text-gray-500">
+                        <p className="text-sm" style={{ color: '#4A7C9C' }}>
                           Par {topic.author} • {topic.lastActivity}
                         </p>
                       </div>
-                      <div className="flex items-center space-x-4 text-sm text-gray-500">
+                      <div className="flex items-center space-x-4 text-sm" style={{ color: '#4A7C9C' }}>
                         <span className="flex items-center">
                           <MessageSquare size={16} className="mr-1" />
                           {topic.replies}
@@ -386,7 +421,7 @@ export default function CommunautePage() {
       {/* Community Leaders */}
       <section className="py-20">
         <Container>
-          <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">
+          <h2 className="text-2xl font-bold mb-8 text-center" style={{ color: '#1B3B4F' }}>
             Membres actifs de la communauté
           </h2>
 
@@ -401,26 +436,43 @@ export default function CommunautePage() {
               >
                 <Card className="text-center">
                   <div className="relative">
-                    <div className="w-20 h-20 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center text-white font-bold text-2xl mx-auto mb-4">
+                    <div
+                      className="w-20 h-20 rounded-full flex items-center justify-center text-white font-bold text-2xl mx-auto mb-4"
+                      style={{
+                        background: 'linear-gradient(135deg, #D4AF37 0%, #F5E7B2 100%)',
+                        color: '#1B3B4F'
+                      }}
+                    >
                       {leader.avatar}
                     </div>
-                    <span className="absolute top-0 right-1/2 transform translate-x-12 bg-yellow-400 text-xs text-gray-900 font-semibold px-2 py-1 rounded-full">
+                    <span
+                      className="absolute top-0 right-1/2 transform translate-x-12 text-xs font-semibold px-2 py-1 rounded-full"
+                      style={{
+                        backgroundColor: '#D4AF37',
+                        color: '#1B3B4F'
+                      }}
+                    >
                       {leader.badge}
                     </span>
                   </div>
-                  <h3 className="font-semibold text-gray-900">{leader.name}</h3>
-                  <p className="text-sm text-gray-500 mb-3">{leader.role}</p>
-                  <div className="flex justify-center space-x-4 text-sm">
-                    <span className="text-gray-600">
+                  <h3 className="font-semibold" style={{ color: '#1B3B4F' }}>{leader.name}</h3>
+                  <p className="text-sm mb-3" style={{ color: '#4A7C9C' }}>{leader.role}</p>
+                  <div className="flex justify-center space-x-4 text-sm" style={{ color: '#4A7C9C' }}>
+                    <span>
                       <MessageSquare size={14} className="inline mr-1" />
                       {leader.contributions}
                     </span>
-                    <span className="text-gray-600">
+                    <span>
                       <Users size={14} className="inline mr-1" />
                       {leader.followers}
                     </span>
                   </div>
-                  <Button variant="outline" size="sm" className="w-full mt-4">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="w-full mt-4"
+                    style={{ borderColor: '#2C5F7C', color: '#2C5F7C' }}
+                  >
                     Suivre
                   </Button>
                 </Card>
@@ -431,15 +483,17 @@ export default function CommunautePage() {
       </section>
 
       {/* Events */}
-      <section className="py-20 bg-gradient-to-b from-white to-green-50">
+      <section className="py-20" style={{
+        background: 'linear-gradient(to bottom, white, #F5F0E6)'
+      }}>
         <Container>
           <div className="flex justify-between items-center mb-8">
             <div>
-              <h2 className="text-2xl font-bold text-gray-900">Événements à venir</h2>
-              <p className="text-gray-600">Participez aux rencontres de la communauté</p>
+              <h2 className="text-2xl font-bold" style={{ color: '#1B3B4F' }}>Événements à venir</h2>
+              <p style={{ color: '#4A7C9C' }}>Participez aux rencontres de la communauté</p>
             </div>
             <Link href="/communaute/evenements">
-              <Button variant="ghost">
+              <Button variant="ghost" style={{ color: '#2C5F7C' }}>
                 Tous les événements
                 <ChevronRight className="ml-1 w-4 h-4" />
               </Button>
@@ -455,10 +509,10 @@ export default function CommunautePage() {
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
               >
-                <Card hover className="h-full">
+                <Card hover className="h-full" >
                   <div className="text-4xl mb-4">{event.image}</div>
-                  <h3 className="font-semibold text-gray-900 mb-2">{event.title}</h3>
-                  <div className="space-y-2 text-sm text-gray-600 mb-4">
+                  <h3 className="font-semibold mb-2" style={{ color: '#1B3B4F' }}>{event.title}</h3>
+                  <div className="space-y-2 text-sm mb-4" style={{ color: '#4A7C9C' }}>
                     <p className="flex items-center">
                       <Calendar size={14} className="mr-2" />
                       {event.date} à {event.time}
@@ -472,7 +526,12 @@ export default function CommunautePage() {
                       {event.speaker}
                     </p>
                   </div>
-                  <Button variant="outline" size="sm" className="w-full">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="w-full"
+                    style={{ borderColor: '#D4AF37', color: '#D4AF37' }}
+                  >
                     S'inscrire
                   </Button>
                 </Card>
@@ -485,24 +544,49 @@ export default function CommunautePage() {
       {/* CTA */}
       <section className="py-20">
         <Container>
-          <div className="bg-gradient-to-br from-green-600 to-green-700 rounded-3xl p-12 text-center text-white">
-            <h2 className="text-3xl font-bold mb-4">
-              Rejoignez la communauté
-            </h2>
-            <p className="text-xl text-green-100 mb-8 max-w-2xl mx-auto">
-              Ensemble, construisons l'avenir économique de l'AES
-            </p>
-            <div className="flex flex-wrap gap-4 justify-center">
-              <Link href="/auth/register">
-                <Button variant="secondary" size="lg" className="bg-white text-green-600 hover:bg-gray-100">
-                  Créer mon compte
-                </Button>
-              </Link>
-              <Link href="/communaute/forum">
-                <Button variant="outline" size="lg" className="border-white text-white hover:bg-white/10">
-                  Visiter le forum
-                </Button>
-              </Link>
+          <div
+            className="rounded-3xl p-12 text-center text-white relative overflow-hidden"
+            style={{
+              background: 'linear-gradient(135deg, #1B3B4F 0%, #2C5F7C 100%)',
+            }}
+          >
+            {/* Éléments décoratifs */}
+            <div className="absolute top-0 right-0 w-64 h-64 bg-[#D4AF37] rounded-full blur-3xl opacity-10" />
+            <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#D4AF37] rounded-full blur-3xl opacity-10" />
+
+            <div className="relative z-10">
+              <h2 className="text-3xl font-bold mb-4">
+                Rejoignez la communauté
+              </h2>
+              <p className="text-xl mb-8 max-w-2xl mx-auto" style={{ color: '#F5F0E6' }}>
+                Ensemble, construisons l'avenir économique de l'AES
+              </p>
+              <div className="flex flex-wrap gap-4 justify-center">
+                <Link href="/auth/register">
+                  <Button
+                    size="lg"
+                    style={{
+                      backgroundColor: '#D4AF37',
+                      color: '#1B3B4F',
+                      border: 'none'
+                    }}
+                  >
+                    Créer mon compte
+                  </Button>
+                </Link>
+                <Link href="/communaute/forum">
+                  <Button
+                    variant="outline"
+                    size="lg"
+                    style={{
+                      borderColor: '#F5F0E6',
+                      color: '#F5F0E6'
+                    }}
+                  >
+                    Visiter le forum
+                  </Button>
+                </Link>
+              </div>
             </div>
           </div>
         </Container>

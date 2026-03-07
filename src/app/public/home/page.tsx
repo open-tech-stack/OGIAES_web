@@ -49,30 +49,21 @@ export default function Home() {
     return (
         <div className="overflow-hidden">
             {/* Hero Section */}
-            <section className="relative min-h-screen flex items-center justify-center bg-linear-to-b from-green-50 to-white">
+            <section className="relative min-h-screen flex items-center justify-center bg-linear-to-b from-[#F5F0E6] to-white">
                 <div className="absolute inset-0 bg-[url('/images/pattern.svg')] opacity-5" />
 
                 <div className="container mx-auto px-4 py-20">
                     <div className="grid lg:grid-cols-2 gap-12 items-center">
                         <FadeIn direction="left">
                             <div className="space-y-6">
-                                <motion.div
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: 0.2 }}
-                                    className="inline-block px-4 py-2 bg-green-100 text-green-700 rounded-full text-sm font-semibold"
-                                >
-                                    🇧🇫 🇲🇱 🇳🇪 Ensemble pour l'AES
-                                </motion.div>
-
-                                <h1 className="text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
+                                <h1 className="text-5xl lg:text-6xl font-bold leading-tight" style={{ color: '#2C5F7C' }}>
                                     OGIAES
-                                    <span className="block text-green-600 text-4xl lg:text-5xl mt-2">
+                                    <span className="block text-4xl lg:text-5xl mt-2" style={{ color: '#D4AF37' }}>
                                         Votre Épargne, Notre Avenir
                                     </span>
                                 </h1>
 
-                                <p className="text-xl text-gray-600 max-w-2xl">
+                                <p className="text-xl max-w-2xl" style={{ color: '#4A7C9C' }}>
                                     Rejoignez le premier mécanisme collectif de financement citoyen
                                     de l'espace AES. Investissez dès 500 FCFA par mois et participez
                                     directement à la création de richesses.
@@ -102,8 +93,8 @@ export default function Home() {
                                             transition={{ delay: 0.3 + index * 0.1 }}
                                             className="text-center"
                                         >
-                                            <div className="text-2xl font-bold text-green-600">{stat.value}</div>
-                                            <div className="text-sm text-gray-500">{stat.label}</div>
+                                            <div className="text-2xl font-bold" style={{ color: '#D4AF37' }}>{stat.value}</div>
+                                            <div className="text-sm" style={{ color: '#4A7C9C' }}>{stat.label}</div>
                                         </motion.div>
                                     ))}
                                 </div>
@@ -112,7 +103,7 @@ export default function Home() {
 
                         <FadeIn direction="right">
                             <div className="relative">
-                                <div className="absolute inset-0 bg-green-200 rounded-full blur-3xl opacity-20" />
+                                <div className="absolute inset-0 rounded-full blur-3xl opacity-20" style={{ backgroundColor: '#D4AF37' }} />
                                 <motion.div
                                     animate={{
                                         y: [0, -20, 0],
@@ -143,8 +134,8 @@ export default function Home() {
                     animate={{ y: [0, 10, 0] }}
                     transition={{ duration: 2, repeat: Infinity }}
                 >
-                    <div className="w-6 h-10 border-2 border-gray-400 rounded-full flex justify-center">
-                        <div className="w-1 h-3 bg-green-500 rounded-full mt-2" />
+                    <div className="w-6 h-10 border-2 rounded-full flex justify-center" style={{ borderColor: '#4A7C9C' }}>
+                        <div className="w-1 h-3 rounded-full mt-2" style={{ backgroundColor: '#D4AF37' }} />
                     </div>
                 </motion.div>
             </section>
@@ -153,10 +144,10 @@ export default function Home() {
             <section className="py-20 bg-white">
                 <div className="container mx-auto px-4">
                     <SlideIn>
-                        <h2 className="text-4xl font-bold text-center mb-4">
+                        <h2 className="text-4xl font-bold text-center mb-4" style={{ color: '#2C5F7C' }}>
                             Pourquoi Choisir OGIAES ?
                         </h2>
-                        <p className="text-xl text-gray-600 text-center mb-12 max-w-3xl mx-auto">
+                        <p className="text-xl text-center mb-12 max-w-3xl mx-auto" style={{ color: '#4A7C9C' }}>
                             Une plateforme conçue pour et par les citoyens de l'AES,
                             alliant transparence, sécurité et accessibilité
                         </p>
@@ -168,11 +159,13 @@ export default function Home() {
                                 <motion.div
                                     whileHover={{ y: -10 }}
                                     className="p-6 bg-white rounded-xl shadow-lg hover:shadow-xl transition-all"
+                                    style={{ boxShadow: '0 4px 20px rgba(44, 95, 124, 0.08)' }}
                                 >
-                                    <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center text-green-600 mb-4">
+                                    <div className="w-16 h-16 rounded-full flex items-center justify-center mb-4"
+                                        style={{ backgroundColor: '#F5F0E6', color: '#D4AF37' }}>
                                         {feature.icon}
                                     </div>
-                                    <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
+                                    <h3 className="text-xl font-semibold mb-2" style={{ color: '#2C5F7C' }}>{feature.title}</h3>
                                     <p className="text-gray-600">{feature.description}</p>
                                 </motion.div>
                             </SlideIn>
@@ -182,13 +175,13 @@ export default function Home() {
             </section>
 
             {/* CTA Section */}
-            <section className="py-20 bg-green-600">
+            <section className="py-20" style={{ backgroundColor: '#2C5F7C' }}>
                 <div className="container mx-auto px-4 text-center">
                     <FadeIn>
                         <h2 className="text-4xl font-bold text-white mb-4">
                             Prêt à Devenir Acteur du Développement ?
                         </h2>
-                        <p className="text-xl text-green-100 mb-8 max-w-2xl mx-auto">
+                        <p className="text-xl mb-8 max-w-2xl mx-auto" style={{ color: '#F5F0E6' }}>
                             Rejoignez des milliers de citoyens qui participent déjà
                             à la construction de l'économie de l'AES
                         </p>
@@ -196,7 +189,12 @@ export default function Home() {
                             <Button
                                 variant="secondary"
                                 size="lg"
-                                className="bg-white text-green-600 hover:bg-gray-100"
+                                className="hover:bg-opacity-90"
+                                style={{
+                                    backgroundColor: '#D4AF37',
+                                    color: '#2C5F7C',
+                                    border: 'none'
+                                }}
                             >
                                 Commencer Maintenant
                             </Button>

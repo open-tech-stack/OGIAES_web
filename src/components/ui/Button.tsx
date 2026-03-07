@@ -10,26 +10,41 @@ interface ButtonProps extends Omit<HTMLMotionProps<"button">, "ref"> {
   className?: string
 }
 
-const Button = forwardRef<HTMLButtonElement, ButtonProps>(({ 
-  variant = 'primary', 
-  size = 'md', 
-  children, 
+const Button = forwardRef<HTMLButtonElement, ButtonProps>(({
+  variant = 'primary',
+  size = 'md',
+  children,
   className = '',
-  ...props 
+  style,
+  ...props
 }, ref) => {
   const baseStyles = "inline-flex items-center justify-center font-semibold rounded-lg transition-all focus:outline-none focus:ring-2 focus:ring-offset-2"
-  
+
   const variants = {
-    primary: "bg-green-600 text-white hover:bg-green-700 focus:ring-green-500",
-    secondary: "bg-gray-200 text-gray-900 hover:bg-gray-300 focus:ring-gray-500",
-    outline: "border-2 border-green-600 text-green-600 hover:bg-green-50 focus:ring-green-500",
-    ghost: "text-gray-600 hover:bg-gray-100 focus:ring-gray-500"
+    primary: "text-white hover:bg-opacity-90",
+    secondary: "text-gray-900 hover:bg-opacity-90",
+    outline: "border-2 hover:bg-opacity-10",
+    ghost: "hover:bg-opacity-10"
   }
-  
+
   const sizes = {
     sm: "px-3 py-1.5 text-sm",
     md: "px-4 py-2 text-base",
     lg: "px-6 py-3 text-lg"
+  }
+
+  const variantStyles = {
+    primary: { backgroundColor: '#2C5F7C' }, // Bleu plus clair
+    secondary: { backgroundColor: '#D4AF37', color: '#2C5F7C' },
+    outline: { borderColor: '#2C5F7C', color: '#2C5F7C' },
+    ghost: { color: '#2C5F7C' }
+  }
+
+  const focusRingColors = {
+    primary: '#2C5F7C',
+    secondary: '#D4AF37',
+    outline: '#2C5F7C',
+    ghost: '#2C5F7C'
   }
 
   const buttonClassName = [
@@ -45,6 +60,17 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(({
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
       className={buttonClassName}
+      style={{
+        ...variantStyles[variant],
+        ...(variant === 'outline' && { borderWidth: '2px' }),
+        ...style
+      }}
+      onFocus={(e) => {
+        e.currentTarget.style.boxShadow = `0 0 0 2px ${focusRingColors[variant]}40`
+      }}
+      onBlur={(e) => {
+        e.currentTarget.style.boxShadow = 'none'
+      }}
       {...props}
     >
       {children}

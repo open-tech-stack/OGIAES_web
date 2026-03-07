@@ -163,7 +163,7 @@ export default function CommunautePage() {
                             {/* Author */}
                             <div className="flex items-center justify-between mb-4">
                                 <div className="flex items-center space-x-3">
-                                    <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center text-white font-semibold">
+                                    <div className="w-10 h-10 bg-linear-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center text-white font-semibold">
                                         {post.avatar}
                                     </div>
                                     <div>
@@ -278,7 +278,7 @@ export default function CommunautePage() {
                         initial={{ opacity: 0, x: 20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: 0.2 }}
-                        className="bg-gradient-to-br from-green-600 to-green-700 rounded-xl shadow-sm p-6 text-white"
+                        className="bg-linear-to-br from-green-600 to-green-700 rounded-xl shadow-sm p-6 text-white"
                     >
                         <h3 className="font-semibold mb-2">Rejoignez la discussion</h3>
                         <p className="text-sm text-green-100 mb-4">

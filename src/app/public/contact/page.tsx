@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { 
+import {
   Mail,
   Phone,
   MapPin,
@@ -11,8 +11,7 @@ import {
   Clock,
   Users,
   HelpCircle,
-  CheckCircle,
-  AlertCircle
+  CheckCircle
 } from 'lucide-react'
 import Link from 'next/link'
 import Button from '@/components/ui/Button'
@@ -37,21 +36,24 @@ export default function ContactPage() {
       title: 'Email',
       details: ['contact@ogiaes.org', 'support@ogiaes.org'],
       action: 'mailto:contact@ogiaes.org',
-      color: 'from-blue-500 to-blue-600'
+      bgColor: 'bg-[#1B3B4F]',
+      hoverColor: 'hover:bg-[#2C5F7C]'
     },
     {
       icon: <Phone className="w-6 h-6" />,
       title: 'Téléphone',
       details: ['+226 XX XX XX XX', '+226 XX XX XX XX'],
       action: 'tel:+226XXXXXXXX',
-      color: 'from-green-500 to-green-600'
+      bgColor: 'bg-[#2C5F7C]',
+      hoverColor: 'hover:bg-[#4A7C9C]'
     },
     {
       icon: <MapPin className="w-6 h-6" />,
       title: 'Bureaux',
       details: ['Ouagadougou, Burkina Faso', 'Bamako, Mali', 'Niamey, Niger'],
       action: '#',
-      color: 'from-purple-500 to-purple-600'
+      bgColor: 'bg-[#4A7C9C]',
+      hoverColor: 'hover:bg-[#6B9AB8]'
     }
   ]
 
@@ -84,22 +86,22 @@ export default function ContactPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsLoading(true)
-    
+
     // Simuler l'envoi du formulaire
     await new Promise(resolve => setTimeout(resolve, 1500))
-    
+
     setIsLoading(false)
     setIsSubmitted(true)
     setFormData({ name: '', email: '', subject: '', message: '' })
-    
+
     // Reset success message after 5 seconds
     setTimeout(() => setIsSubmitted(false), 5000)
   }
 
   return (
-    <div className="min-h-screen bg-linear-to-b from-green-50 to-white">
+    <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="relative py-20 overflow-hidden">
+      <section className="relative py-20 overflow-hidden bg-gradient-to-b from-[#F5F0E6] to-white">
         <Container>
           <FadeIn>
             <div className="text-center max-w-3xl mx-auto">
@@ -107,14 +109,16 @@ export default function ContactPage() {
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 transition={{ delay: 0.2, type: 'spring' }}
-                className="inline-flex items-center justify-center w-20 h-20 bg-green-100 rounded-2xl mb-6"
+                className="inline-flex items-center justify-center w-20 h-20 rounded-2xl mb-6 bg-[#D4AF37] shadow-lg shadow-[#D4AF37]/30"
               >
-                <MessageSquare className="w-10 h-10 text-green-600" />
+                <MessageSquare className="w-10 h-10 text-white" />
               </motion.div>
-              <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+
+              <h1 className="text-4xl md:text-5xl font-bold mb-4 text-[#1B3B4F]">
                 Contactez-nous
               </h1>
-              <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+
+              <p className="text-xl mb-8 max-w-2xl mx-auto text-[#2C5F7C]">
                 Notre équipe est là pour répondre à toutes vos questions
               </p>
             </div>
@@ -136,21 +140,23 @@ export default function ContactPage() {
                 whileHover={{ y: -5 }}
               >
                 <Link href={info.action} className="block h-full">
-                  <Card className="h-full text-center group">
-                    <div className={`w-16 h-16 bg-linear-to-br ${info.color} rounded-2xl flex items-center justify-center text-white mx-auto mb-4 group-hover:scale-110 transition-transform`}>
-                      {info.icon}
+                  <div className={`h-full text-center p-6 rounded-xl transition-all ${info.bgColor} ${info.hoverColor} text-white shadow-lg`}>
+                    <div className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 bg-white/20 group-hover:scale-110 transition-transform">
+                      <div className="text-white">
+                        {info.icon}
+                      </div>
                     </div>
-                    <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                    <h3 className="text-lg font-semibold mb-3 text-white">
                       {info.title}
                     </h3>
                     <div className="space-y-1">
                       {info.details.map((detail, idx) => (
-                        <p key={idx} className="text-sm text-gray-600">
+                        <p key={idx} className="text-sm text-white/90">
                           {detail}
                         </p>
                       ))}
                     </div>
-                  </Card>
+                  </div>
                 </Link>
               </motion.div>
             ))}
@@ -165,36 +171,47 @@ export default function ContactPage() {
             {/* Form */}
             <div>
               <FadeIn direction="left">
-                <h2 className="text-2xl font-bold text-gray-900 mb-2">
+                <h2 className="text-2xl font-bold mb-2 text-[#1B3B4F]">
                   Envoyez-nous un message
                 </h2>
-                <p className="text-gray-600 mb-8">
+                <p className="mb-8 text-[#2C5F7C]">
                   Remplissez le formulaire ci-dessous et nous vous répondrons dans les plus brefs délais
                 </p>
 
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid md:grid-cols-2 gap-4">
-                    <Input
-                      label="Nom complet"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleChange}
-                      required
-                      placeholder="Amadou Diallo"
-                    />
-                    <Input
-                      label="Email"
-                      type="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      required
-                      placeholder="amadou@email.com"
-                    />
+                    <div>
+                      <label className="block text-sm font-medium mb-2 text-[#1B3B4F]">
+                        Nom complet
+                      </label>
+                      <input
+                        type="text"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleChange}
+                        required
+                        placeholder="Amadou Diallo"
+                        className="w-full px-4 py-3 border border-[#F5F0E6] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:border-transparent text-[#1B3B4F] bg-white"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium mb-2 text-[#1B3B4F]">
+                        Email
+                      </label>
+                      <input
+                        type="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        required
+                        placeholder="amadou@email.com"
+                        className="w-full px-4 py-3 border border-[#F5F0E6] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:border-transparent text-[#1B3B4F] bg-white"
+                      />
+                    </div>
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium mb-2 text-[#1B3B4F]">
                       Sujet
                     </label>
                     <select
@@ -202,19 +219,19 @@ export default function ContactPage() {
                       value={formData.subject}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500/20 focus:border-green-500"
+                      className="w-full px-4 py-3 border border-[#F5F0E6] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:border-transparent text-[#1B3B4F] bg-white"
                     >
-                      <option value="">Sélectionnez un sujet</option>
-                      <option value="information">Demande d'information</option>
-                      <option value="support">Support technique</option>
-                      <option value="partenariat">Partenariat</option>
-                      <option value="projet">Proposition de projet</option>
-                      <option value="autre">Autre</option>
+                      <option value="" className="text-[#4A7C9C]">Sélectionnez un sujet</option>
+                      <option value="information" className="text-[#1B3B4F]">Demande d'information</option>
+                      <option value="support" className="text-[#1B3B4F]">Support technique</option>
+                      <option value="partenariat" className="text-[#1B3B4F]">Partenariat</option>
+                      <option value="projet" className="text-[#1B3B4F]">Proposition de projet</option>
+                      <option value="autre" className="text-[#1B3B4F]">Autre</option>
                     </select>
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium mb-2 text-[#1B3B4F]">
                       Message
                     </label>
                     <textarea
@@ -223,20 +240,20 @@ export default function ContactPage() {
                       onChange={handleChange}
                       required
                       rows={6}
-                      className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500/20 focus:border-green-500 resize-none"
+                      className="w-full px-4 py-3 border border-[#F5F0E6] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:border-transparent text-[#1B3B4F] bg-white resize-none"
                       placeholder="Votre message..."
                     />
                   </div>
 
-                  <Button 
-                    type="submit" 
-                    size="lg" 
-                    className="w-full"
+                  <Button
+                    type="submit"
+                    size="lg"
+                    className="w-full shadow-lg bg-[#D4AF37] text-[#1B3B4F] hover:bg-[#F5E7B2]"
                     disabled={isLoading}
                   >
                     {isLoading ? (
                       <>
-                        <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
+                        <div className="w-5 h-5 border-2 border-[#1B3B4F] border-t-transparent rounded-full animate-spin mr-2" />
                         Envoi en cours...
                       </>
                     ) : (
@@ -252,9 +269,9 @@ export default function ContactPage() {
                     <motion.div
                       initial={{ opacity: 0, y: -10 }}
                       animate={{ opacity: 1, y: 0 }}
-                      className="p-4 bg-green-50 text-green-700 rounded-lg flex items-center space-x-2"
+                      className="p-4 rounded-lg flex items-center space-x-2 bg-[#1B3B4F] text-white"
                     >
-                      <CheckCircle size={20} />
+                      <CheckCircle size={20} className="text-[#D4AF37]" />
                       <span>Message envoyé avec succès ! Nous vous répondrons bientôt.</span>
                     </motion.div>
                   )}
@@ -265,11 +282,13 @@ export default function ContactPage() {
             {/* Map & Additional Info */}
             <div>
               <FadeIn direction="right">
-                <Card className="h-full">
+                <div className="h-full p-6 rounded-xl bg-[#F5F0E6]">
                   {/* Map Placeholder */}
-                  <div className="h-64 bg-linear-to-br from-green-500 to-green-600 rounded-xl mb-6 flex items-center justify-center text-white">
+                  <div
+                    className="h-64 rounded-xl mb-6 flex items-center justify-center text-white bg-gradient-to-br from-[#1B3B4F] to-[#2C5F7C]"
+                  >
                     <div className="text-center">
-                      <MapPin size={48} className="mx-auto mb-2" />
+                      <MapPin size={48} className="mx-auto mb-2 text-[#D4AF37]" />
                       <p className="text-lg font-semibold">OGIAES</p>
                       <p className="text-sm opacity-90">Ouagadougou, Burkina Faso</p>
                     </div>
@@ -277,63 +296,63 @@ export default function ContactPage() {
 
                   <div className="space-y-6">
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-3 flex items-center">
-                        <Clock size={18} className="mr-2 text-green-600" />
+                      <h3 className="font-semibold mb-3 flex items-center text-[#1B3B4F]">
+                        <Clock size={18} className="mr-2 text-[#D4AF37]" />
                         Horaires d'ouverture
                       </h3>
                       <div className="space-y-2 text-sm">
                         <div className="flex justify-between">
-                          <span className="text-gray-600">Lundi - Vendredi</span>
-                          <span className="text-gray-900 font-medium">08h00 - 18h00</span>
+                          <span className="text-[#2C5F7C]">Lundi - Vendredi</span>
+                          <span className="font-medium text-[#1B3B4F]">08h00 - 18h00</span>
                         </div>
                         <div className="flex justify-between">
-                          <span className="text-gray-600">Samedi</span>
-                          <span className="text-gray-900 font-medium">09h00 - 13h00</span>
+                          <span className="text-[#2C5F7C]">Samedi</span>
+                          <span className="font-medium text-[#1B3B4F]">09h00 - 13h00</span>
                         </div>
                         <div className="flex justify-between">
-                          <span className="text-gray-600">Dimanche</span>
-                          <span className="text-gray-900 font-medium">Fermé</span>
+                          <span className="text-[#2C5F7C]">Dimanche</span>
+                          <span className="font-medium text-[#1B3B4F]">Fermé</span>
                         </div>
                       </div>
                     </div>
 
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-3 flex items-center">
-                        <Users size={18} className="mr-2 text-green-600" />
+                      <h3 className="font-semibold mb-3 flex items-center text-[#1B3B4F]">
+                        <Users size={18} className="mr-2 text-[#D4AF37]" />
                         Support disponible
                       </h3>
-                      <p className="text-sm text-gray-600">
+                      <p className="text-sm text-[#2C5F7C]">
                         Notre équipe de support est joignable par téléphone et email aux horaires d'ouverture.
                         Pour une assistance immédiate, privilégiez l'appel téléphonique.
                       </p>
                     </div>
 
-                    <div className="pt-4 border-t border-gray-100">
-                      <h3 className="font-semibold text-gray-900 mb-3 flex items-center">
-                        <HelpCircle size={18} className="mr-2 text-green-600" />
+                    <div className="pt-4 border-t border-[#D4AF37]/30">
+                      <h3 className="font-semibold mb-3 flex items-center text-[#1B3B4F]">
+                        <HelpCircle size={18} className="mr-2 text-[#D4AF37]" />
                         Questions fréquentes
                       </h3>
                       <div className="space-y-3">
                         {faqItems.slice(0, 2).map((item, index) => (
                           <div key={index}>
-                            <p className="text-sm font-medium text-gray-900 mb-1">
+                            <p className="text-sm font-medium mb-1 text-[#1B3B4F]">
                               {item.question}
                             </p>
-                            <p className="text-xs text-gray-600">
+                            <p className="text-xs text-[#2C5F7C]">
                               {item.answer}
                             </p>
                           </div>
                         ))}
-                        <Link 
+                        <Link
                           href="/faq"
-                          className="inline-block text-sm text-green-600 hover:text-green-700 font-medium mt-2"
+                          className="inline-block text-sm font-medium mt-2 transition-colors text-[#D4AF37] hover:text-[#1B3B4F]"
                         >
                           Voir toutes les FAQ →
                         </Link>
                       </div>
                     </div>
                   </div>
-                </Card>
+                </div>
               </FadeIn>
             </div>
           </div>
@@ -341,13 +360,13 @@ export default function ContactPage() {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-[#F5F0E6]">
         <Container>
           <FadeIn>
-            <h2 className="text-3xl font-bold text-center text-gray-900 mb-4">
+            <h2 className="text-3xl font-bold text-center mb-4 text-[#1B3B4F]">
               Questions fréquentes
             </h2>
-            <p className="text-xl text-gray-600 text-center mb-12 max-w-2xl mx-auto">
+            <p className="text-xl text-center mb-12 max-w-2xl mx-auto text-[#2C5F7C]">
               Retrouvez les réponses aux questions les plus courantes
             </p>
           </FadeIn>
@@ -361,53 +380,56 @@ export default function ContactPage() {
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
               >
-                <Card className="p-6">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2 flex items-start">
-                    <HelpCircle size={20} className="text-green-600 mr-2 shrink-0 mt-1" />
+                <div className="p-6 rounded-xl bg-white">
+                  <h3 className="text-lg font-semibold mb-2 flex items-start text-[#1B3B4F]">
+                    <HelpCircle size={20} className="mr-2 shrink-0 mt-1 text-[#D4AF37]" />
                     {item.question}
                   </h3>
-                  <p className="text-gray-600 ml-8">
+                  <p className="ml-8 text-[#2C5F7C]">
                     {item.answer}
                   </p>
-                </Card>
+                </div>
               </motion.div>
             ))}
           </div>
 
           <div className="text-center mt-8">
-            <p className="text-gray-600 mb-4">
+            <p className="mb-4 text-[#2C5F7C]">
               Vous ne trouvez pas la réponse à votre question ?
             </p>
             <Link href="/faq">
-              <Button variant="outline">
-                Consulter toutes les FAQ
-              </Button>
+              <Button
+                variant="outline"
+                className="border-[#D4AF37] text-[#D4AF37] hover:bg-[#D4AF37] hover:text-white" children={undefined}              />
             </Link>
           </div>
         </Container>
       </section>
 
       {/* Newsletter */}
-      <section className="py-20 bg-linear-to-br from-green-600 to-green-700">
+      <section className="py-20 bg-[#1B3B4F]">
         <Container>
           <div className="text-center text-white max-w-2xl mx-auto">
             <h2 className="text-3xl font-bold mb-4">
               Restez informé
             </h2>
-            <p className="text-xl text-green-100 mb-8">
+            <p className="text-xl mb-8 text-[#F5F0E6]">
               Inscrivez-vous à notre newsletter pour recevoir les actualités des projets et les opportunités d'investissement
             </p>
             <form className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
               <input
                 type="email"
                 placeholder="Votre email"
-                className="flex-1 px-4 py-3 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-white"
+                className="flex-1 px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#D4AF37] text-[#1B3B4F] bg-white"
               />
-              <Button type="submit" variant="secondary" className="bg-white text-green-600 hover:bg-gray-100 whitespace-nowrap">
+              <Button
+                type="submit"
+                className="whitespace-nowrap shadow-lg bg-[#D4AF37] text-[#1B3B4F] hover:bg-[#F5E7B2]"
+              >
                 S'abonner
               </Button>
             </form>
-            <p className="text-sm text-green-200 mt-4">
+            <p className="text-sm mt-4 text-[#F5F0E6]">
               Nous respectons votre vie privée. Désinscription possible à tout moment.
             </p>
           </div>

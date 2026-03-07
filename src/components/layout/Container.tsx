@@ -1,5 +1,4 @@
 import { ReactNode } from 'react'
-import { cn } from '@/lib/utils'
 
 interface ContainerProps {
   children: ReactNode
@@ -7,10 +6,10 @@ interface ContainerProps {
   size?: 'sm' | 'md' | 'lg' | 'xl' | 'full'
 }
 
-export default function Container({ 
-  children, 
+export default function Container({
+  children,
   className,
-  size = 'lg' 
+  size = 'lg'
 }: ContainerProps) {
   const sizes = {
     sm: 'max-w-3xl',
@@ -18,6 +17,11 @@ export default function Container({
     lg: 'max-w-6xl',
     xl: 'max-w-7xl',
     full: 'max-w-full'
+  }
+
+  // Fonction cn simple
+  const cn = (...classes: (string | undefined | false)[]) => {
+    return classes.filter(Boolean).join(' ')
   }
 
   return (

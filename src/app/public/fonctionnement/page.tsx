@@ -1,10 +1,10 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { 
-  UserCheck, 
-  Search, 
-  TrendingUp, 
+import {
+  UserCheck,
+  Search,
+  TrendingUp,
   CheckCircle,
   Shield,
   Clock,
@@ -29,7 +29,7 @@ export default function FonctionnementPage() {
         'Validation sous 24-48h',
         'Compte sécurisé activé'
       ],
-      color: 'from-blue-500 to-blue-600'
+      color: '#1B3B4F'
     },
     {
       icon: <Search className="w-8 h-8" />,
@@ -41,7 +41,7 @@ export default function FonctionnementPage() {
         'Analyses financières incluses',
         'Évaluations de risques'
       ],
-      color: 'from-green-500 to-green-600'
+      color: '#2C5F7C'
     },
     {
       icon: <Wallet className="w-8 h-8" />,
@@ -53,7 +53,7 @@ export default function FonctionnementPage() {
         'Investissement progressif',
         'Possibilité de plusieurs projets'
       ],
-      color: 'from-purple-500 to-purple-600'
+      color: '#4A7C9C'
     },
     {
       icon: <TrendingUp className="w-8 h-8" />,
@@ -65,7 +65,7 @@ export default function FonctionnementPage() {
         'Rapports trimestriels',
         'Indicateurs d\'impact'
       ],
-      color: 'from-orange-500 to-orange-600'
+      color: '#6B9AB8'
     }
   ]
 
@@ -88,7 +88,7 @@ export default function FonctionnementPage() {
   ]
 
   return (
-    <div className="min-h-screen bg-linear-to-b from-green-50 to-white">
+    <div className="min-h-screen bg-linear-to-b from-[#F5F0E6] to-white">
       {/* Hero Section */}
       <section className="relative py-20 overflow-hidden">
         <Container>
@@ -98,26 +98,41 @@ export default function FonctionnementPage() {
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 transition={{ delay: 0.2, type: 'spring' }}
-                className="inline-flex items-center justify-center w-20 h-20 bg-green-100 rounded-2xl mb-6"
+                className="inline-flex items-center justify-center w-20 h-20 rounded-2xl mb-6"
+                style={{
+                  backgroundColor: '#F5F0E6',
+                  boxShadow: '0 10px 25px -5px rgba(212, 175, 55, 0.2)'
+                }}
               >
-                <TrendingUp className="w-10 h-10 text-green-600" />
+                <TrendingUp className="w-10 h-10" style={{ color: '#D4AF37' }} />
               </motion.div>
-              <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+
+              <h1 className="text-4xl md:text-5xl font-bold mb-4" style={{ color: '#1B3B4F' }}>
                 Comment ça fonctionne ?
               </h1>
-              <p className="text-xl text-gray-600 mb-8">
-                Découvrez comment devenir acteur du développement économique de l'AES 
+
+              <p className="text-xl mb-8" style={{ color: '#4A7C9C' }}>
+                Découvrez comment devenir acteur du développement économique de l'AES
                 en quelques étapes simples
               </p>
+
               <div className="flex flex-wrap gap-4 justify-center">
                 <Link href="/auth/register">
-                  <Button size="lg">
+                  <Button
+                    size="lg"
+                    className="shadow-lg"
+                    style={{ backgroundColor: '#D4AF37', color: '#1B3B4F' }}
+                  >
                     Commencer maintenant
                     <ArrowRight className="ml-2 w-5 h-5" />
                   </Button>
                 </Link>
                 <Link href="#steps">
-                  <Button variant="outline" size="lg">
+                  <Button
+                    variant="outline"
+                    size="lg"
+                    style={{ borderColor: '#2C5F7C', color: '#2C5F7C' }}
+                  >
                     En savoir plus
                   </Button>
                 </Link>
@@ -130,44 +145,60 @@ export default function FonctionnementPage() {
       {/* Steps Section */}
       <section id="steps" className="py-20">
         <Container>
-          <div className="space-y-16">
+          <div className="space-y-12">
             {steps.map((step, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 50 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 className="relative"
               >
-                {/* Connection line (except for last item) */}
-                {index < steps.length - 1 && (
-                  <div className="absolute left-12 top-24 bottom-0 w-0.5 bg-linear-to-b from-green-300 to-transparent hidden md:block" />
-                )}
-                
-                <div className="flex flex-col md:flex-row gap-8 items-start">
+                <div className="flex flex-col md:flex-row gap-6 items-start">
                   {/* Step Number & Icon */}
-                  <div className="shrink-0">
-                    <div className={`w-24 h-24 bg-linear-to-br ${step.color} rounded-2xl flex items-center justify-center text-white shadow-lg`}>
+                  <div className="shrink-0 relative">
+                    <div
+                      className="w-20 h-20 rounded-2xl flex items-center justify-center text-white shadow-lg relative z-10"
+                      style={{ backgroundColor: step.color }}
+                    >
                       {step.icon}
                     </div>
+                    {/* Ligne de connexion */}
+                    {index < steps.length - 1 && (
+                      <div
+                        className="absolute left-10 top-20 w-0.5 h-16 hidden md:block"
+                        style={{
+                          background: `linear-gradient(to bottom, ${step.color}, ${steps[index + 1].color})`,
+                          opacity: 0.3
+                        }}
+                      />
+                    )}
                   </div>
-                  
+
                   {/* Content */}
-                  <div className="flex-1 bg-white rounded-2xl shadow-lg p-8">
-                    <h2 className="text-2xl font-bold text-gray-900 mb-4">
-                      {step.title}
-                    </h2>
-                    <p className="text-gray-600 mb-6">
-                      {step.description}
-                    </p>
-                    <div className="grid sm:grid-cols-2 gap-3">
-                      {step.details.map((detail, idx) => (
-                        <div key={idx} className="flex items-center space-x-2">
-                          <CheckCircle size={16} className="text-green-600 shrink-0" />
-                          <span className="text-sm text-gray-700">{detail}</span>
-                        </div>
-                      ))}
+                  <div className="flex-1">
+                    <div
+                      className="bg-white rounded-2xl p-8 border"
+                      style={{
+                        boxShadow: '0 10px 30px rgba(27, 59, 79, 0.08)',
+                        borderColor: '#F5F0E6'
+                      }}
+                    >
+                      <h2 className="text-2xl font-bold mb-3" style={{ color: step.color }}>
+                        {step.title}
+                      </h2>
+                      <p className="mb-6" style={{ color: '#4A7C9C' }}>
+                        {step.description}
+                      </p>
+                      <div className="grid sm:grid-cols-2 gap-3">
+                        {step.details.map((detail, idx) => (
+                          <div key={idx} className="flex items-center space-x-2">
+                            <CheckCircle size={16} style={{ color: '#D4AF37' }} />
+                            <span className="text-sm" style={{ color: '#2C5F7C' }}>{detail}</span>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -181,10 +212,10 @@ export default function FonctionnementPage() {
       <section className="py-20 bg-white">
         <Container>
           <FadeIn>
-            <h2 className="text-3xl font-bold text-center text-gray-900 mb-4">
+            <h2 className="text-3xl font-bold text-center mb-4" style={{ color: '#1B3B4F' }}>
               Une plateforme conçue pour vous
             </h2>
-            <p className="text-xl text-gray-600 text-center mb-12 max-w-2xl mx-auto">
+            <p className="text-xl text-center mb-12 max-w-2xl mx-auto" style={{ color: '#4A7C9C' }}>
               Des fonctionnalités pensées pour simplifier votre expérience d'investissement
             </p>
           </FadeIn>
@@ -198,15 +229,26 @@ export default function FonctionnementPage() {
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
                 whileHover={{ y: -5 }}
-                className="bg-green-50 rounded-xl p-6 text-center"
+                className="p-8 rounded-xl text-center transition-all"
+                style={{
+                  backgroundColor: '#F5F0E6',
+                  border: '1px solid rgba(212, 175, 55, 0.1)'
+                }}
               >
-                <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center text-green-600 mx-auto mb-4">
+                <div
+                  className="w-16 h-16 rounded-xl flex items-center justify-center mx-auto mb-4"
+                  style={{
+                    backgroundColor: 'white',
+                    color: '#D4AF37',
+                    boxShadow: '0 5px 15px rgba(212, 175, 55, 0.15)'
+                  }}
+                >
                   {feature.icon}
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                <h3 className="text-lg font-semibold mb-2" style={{ color: '#1B3B4F' }}>
                   {feature.title}
                 </h3>
-                <p className="text-gray-600">{feature.description}</p>
+                <p style={{ color: '#4A7C9C' }}>{feature.description}</p>
               </motion.div>
             ))}
           </div>
@@ -216,24 +258,50 @@ export default function FonctionnementPage() {
       {/* FAQ Teaser */}
       <section className="py-20">
         <Container>
-          <div className="bg-linear-to-br from-green-600 to-green-700 rounded-3xl p-12 text-center text-white">
-            <h2 className="text-3xl font-bold mb-4">
-              Des questions ?
-            </h2>
-            <p className="text-xl text-green-100 mb-8 max-w-2xl mx-auto">
-              Consultez notre FAQ ou contactez notre équipe pour plus d'informations
-            </p>
-            <div className="flex flex-wrap gap-4 justify-center">
-              <Link href="/faq">
-                <Button variant="secondary" size="lg" className="bg-white text-green-600 hover:bg-gray-100">
-                  Voir la FAQ
-                </Button>
-              </Link>
-              <Link href="/contact">
-                <Button variant="outline" size="lg" className="border-white text-white hover:bg-white/10">
-                  Nous contacter
-                </Button>
-              </Link>
+          <div
+            className="rounded-3xl p-12 text-center text-white relative overflow-hidden"
+            style={{
+              background: 'linear-gradient(135deg, #1B3B4F 0%, #2C5F7C 100%)',
+            }}
+          >
+            {/* Éléments décoratifs */}
+            <div className="absolute top-0 right-0 w-64 h-64 bg-[#D4AF37] rounded-full blur-3xl opacity-10" />
+            <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#D4AF37] rounded-full blur-3xl opacity-10" />
+
+            <div className="relative z-10">
+              <h2 className="text-3xl font-bold mb-4">
+                Des questions ?
+              </h2>
+              <p className="text-xl mb-8 max-w-2xl mx-auto" style={{ color: '#F5F0E6' }}>
+                Consultez notre FAQ ou contactez notre équipe pour plus d'informations
+              </p>
+              <div className="flex flex-wrap gap-4 justify-center">
+                <Link href="/faq">
+                  <Button
+                    size="lg"
+                    className="shadow-lg hover:opacity-90 transition-opacity"
+                    style={{
+                      backgroundColor: '#D4AF37',
+                      color: '#1B3B4F',
+                      border: 'none'
+                    }}
+                  >
+                    Voir la FAQ
+                  </Button>
+                </Link>
+                <Link href="/contact">
+                  <Button
+                    variant="outline"
+                    size="lg"
+                    style={{
+                      borderColor: '#F5F0E6',
+                      color: '#F5F0E6'
+                    }}
+                  >
+                    Nous contacter
+                  </Button>
+                </Link>
+              </div>
             </div>
           </div>
         </Container>

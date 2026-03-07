@@ -61,7 +61,6 @@ export default function Footer() {
     { icon: <Instagram size={20} />, href: '#', label: 'Instagram' }
   ]
 
-  // CORRECTION : Typage des variantes avec Variants
   const containerVariants: Variants = {
     hidden: {
       opacity: 0
@@ -189,11 +188,16 @@ export default function Footer() {
     }
   }
 
+  // Créer une version motion de Link
+  const MotionLink = motion(Link)
+
   return (
     <>
-      <footer className="bg-gray-900 text-gray-300 relative">
+      <footer className="relative" style={{ backgroundColor: '#1B3B4F' }}>
         {/* Effet de vague décoratif */}
-        <div className="absolute top-0 left-0 right-0 h-1 bg-linear-to-r from-green-500 via-green-400 to-green-500" />
+        <div className="absolute top-0 left-0 right-0 h-1" style={{
+          background: 'linear-gradient(to right, #D4AF37, #F5E7B2, #D4AF37)'
+        }} />
 
         <Container>
           {/* Main Footer avec animations */}
@@ -214,14 +218,17 @@ export default function Footer() {
                 <motion.div
                   whileHover={{ rotate: 360 }}
                   transition={{ duration: 0.5 }}
-                  className="w-12 h-12 bg-linear-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center shadow-lg"
+                  className="w-12 h-12 rounded-xl flex items-center justify-center shadow-lg"
+                  style={{
+                    background: 'linear-gradient(135deg, #2C5F7C 0%, #4A7C9C 100%)'
+                  }}
                 >
-                  <span className="text-white font-bold text-xl">O</span>
+                  <span className="text-white font-bold text-xl" style={{ color: '#D4AF37' }}>O</span>
                 </motion.div>
                 <span className="font-bold text-xl text-white">OGIAES</span>
               </motion.div>
 
-              <p className="text-sm text-gray-400 mb-6 leading-relaxed">
+              <p className="text-sm mb-6 leading-relaxed" style={{ color: '#F5F0E6' }}>
                 Plateforme d'investissement citoyen pour le développement économique de l'espace AES.
                 Ensemble, construisons l'avenir de notre région.
               </p>
@@ -237,7 +244,19 @@ export default function Footer() {
                     whileHover="hover"
                     whileTap="tap"
                     custom={index}
-                    className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-green-600 transition-colors duration-300"
+                    className="w-10 h-10 rounded-lg flex items-center justify-center transition-colors duration-300"
+                    style={{
+                      backgroundColor: '#2C5F7C',
+                      color: '#F5F0E6'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = '#D4AF37'
+                      e.currentTarget.style.color = '#1B3B4F'
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = '#2C5F7C'
+                      e.currentTarget.style.color = '#F5F0E6'
+                    }}
                     aria-label={social.label}
                   >
                     {social.icon}
@@ -248,7 +267,7 @@ export default function Footer() {
 
             {/* Platform Links */}
             <motion.div variants={itemVariants}>
-              <h3 className="text-white font-semibold mb-6 text-lg">Plateforme</h3>
+              <h3 className="font-semibold mb-6 text-lg" style={{ color: '#D4AF37' }}>Plateforme</h3>
               <ul className="space-y-3">
                 {footerLinks.plateforme.map((link) => (
                   <motion.li
@@ -257,18 +276,21 @@ export default function Footer() {
                     initial="initial"
                     whileHover="hover"
                   >
-                    <Link
+                    <MotionLink
                       href={link.href}
-                      className="text-gray-400 hover:text-green-500 transition-colors text-sm flex items-center group"
+                      className="text-sm flex items-center group"
+                      style={{ color: '#F5F0E6' }}
+                      whileHover={{ color: '#D4AF37' }}
                     >
                       <motion.span
-                        className="w-1 h-1 bg-green-500 rounded-full mr-2"
+                        className="w-1 h-1 rounded-full mr-2"
+                        style={{ backgroundColor: '#D4AF37' }}
                         initial={{ opacity: 0 }}
                         whileHover={{ opacity: 1 }}
                         transition={{ duration: 0.2 }}
                       />
                       {link.label}
-                    </Link>
+                    </MotionLink>
                   </motion.li>
                 ))}
               </ul>
@@ -276,7 +298,7 @@ export default function Footer() {
 
             {/* Legal Links */}
             <motion.div variants={itemVariants}>
-              <h3 className="text-white font-semibold mb-6 text-lg">Informations légales</h3>
+              <h3 className="font-semibold mb-6 text-lg" style={{ color: '#D4AF37' }}>Informations légales</h3>
               <ul className="space-y-3">
                 {footerLinks.legal.map((link) => (
                   <motion.li
@@ -285,18 +307,21 @@ export default function Footer() {
                     initial="initial"
                     whileHover="hover"
                   >
-                    <Link
+                    <MotionLink
                       href={link.href}
-                      className="text-gray-400 hover:text-green-500 transition-colors text-sm flex items-center group"
+                      className="text-sm flex items-center group"
+                      style={{ color: '#F5F0E6' }}
+                      whileHover={{ color: '#D4AF37' }}
                     >
                       <motion.span
-                        className="w-1 h-1 bg-green-500 rounded-full mr-2"
+                        className="w-1 h-1 rounded-full mr-2"
+                        style={{ backgroundColor: '#D4AF37' }}
                         initial={{ opacity: 0 }}
                         whileHover={{ opacity: 1 }}
                         transition={{ duration: 0.2 }}
                       />
                       {link.label}
-                    </Link>
+                    </MotionLink>
                   </motion.li>
                 ))}
               </ul>
@@ -304,7 +329,7 @@ export default function Footer() {
 
             {/* Contact */}
             <motion.div variants={itemVariants}>
-              <h3 className="text-white font-semibold mb-6 text-lg">Contact</h3>
+              <h3 className="font-semibold mb-6 text-lg" style={{ color: '#D4AF37' }}>Contact</h3>
               <ul className="space-y-4">
                 {footerLinks.contact.map((link, index) => (
                   <motion.li
@@ -313,19 +338,21 @@ export default function Footer() {
                     initial="initial"
                     whileHover="hover"
                   >
-                    <Link
+                    <MotionLink
                       href={link.href}
-                      className="flex items-center space-x-3 text-gray-400 hover:text-green-500 transition-colors text-sm group"
+                      className="flex items-center space-x-3 text-sm group"
+                      style={{ color: '#F5F0E6' }}
+                      whileHover={{ color: '#D4AF37' }}
                     >
                       <motion.span
                         whileHover={{ scale: 1.2 }}
                         transition={{ type: "spring", stiffness: 400, damping: 20 }}
-                        className="text-green-500"
+                        style={{ color: '#D4AF37' }}
                       >
                         {link.icon}
                       </motion.span>
                       <span>{link.label}</span>
-                    </Link>
+                    </MotionLink>
                   </motion.li>
                 ))}
               </ul>
@@ -336,18 +363,29 @@ export default function Footer() {
                 whileHover={{ scale: 1.02 }}
                 transition={{ type: "spring", stiffness: 400, damping: 20 }}
               >
-                <p className="text-sm text-gray-400 mb-2">Restez informé</p>
+                <p className="text-sm mb-2" style={{ color: '#F5F0E6' }}>Restez informé</p>
                 <div className="flex">
                   <input
                     type="email"
                     placeholder="Votre email"
-                    className="flex-1 px-3 py-2 bg-gray-800 border border-gray-700 rounded-l-lg text-sm focus:outline-none focus:border-green-500 transition-colors"
+                    className="flex-1 px-3 py-2 rounded-l-lg text-sm focus:outline-none transition-colors"
+                    style={{
+                      backgroundColor: '#2C5F7C',
+                      borderColor: '#4A7C9C',
+                      color: '#F5F0E6'
+                    }}
                   />
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     transition={{ type: "spring", stiffness: 400, damping: 20 }}
-                    className="px-4 py-2 bg-green-600 text-white rounded-r-lg hover:bg-green-700 transition-colors text-sm"
+                    className="px-4 py-2 rounded-r-lg transition-colors text-sm"
+                    style={{
+                      backgroundColor: '#D4AF37',
+                      color: '#1B3B4F'
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#F5E7B2'}
+                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#D4AF37'}
                   >
                     OK
                   </motion.button>
@@ -362,12 +400,14 @@ export default function Footer() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="py-6 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center text-sm text-gray-400"
+            className="py-6 border-t flex flex-col md:flex-row justify-between items-center text-sm"
+            style={{ borderColor: '#2C5F7C' }}
           >
             <motion.p
               whileHover={{ scale: 1.05 }}
               transition={{ type: "spring", stiffness: 400, damping: 20 }}
               className="flex items-center"
+              style={{ color: '#F5F0E6' }}
             >
               © {currentYear} OGIAES. Tous droits réservés.
               <motion.div
@@ -380,7 +420,7 @@ export default function Footer() {
                   repeatType: "reverse"
                 }}
               >
-                <Heart size={14} className="ml-2 text-red-500" />
+                <Heart size={14} className="ml-2" style={{ color: '#D4AF37' }} />
               </motion.div>
             </motion.p>
 
@@ -391,12 +431,14 @@ export default function Footer() {
                   whileHover={{ y: -2 }}
                   transition={{ type: "spring", stiffness: 400, damping: 20 }}
                 >
-                  <Link
+                  <MotionLink
                     href={`/legal/${item.toLowerCase()}`}
-                    className="hover:text-green-500 transition-colors"
+                    className="transition-colors"
+                    style={{ color: '#F5F0E6' }}
+                    whileHover={{ color: '#D4AF37' }}
                   >
                     {item}
-                  </Link>
+                  </MotionLink>
                 </motion.div>
               ))}
             </div>
@@ -416,7 +458,13 @@ export default function Footer() {
             whileHover="hover"
             whileTap="tap"
             onClick={scrollToTop}
-            className="fixed bottom-8 right-8 z-50 p-3 bg-green-600 text-white rounded-full shadow-lg hover:bg-green-700 transition-colors"
+            className="fixed bottom-8 right-8 z-50 p-3 rounded-full shadow-lg transition-colors"
+            style={{
+              backgroundColor: '#D4AF37',
+              color: '#1B3B4F'
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#F5E7B2'}
+            onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#D4AF37'}
           >
             <ArrowUp size={24} />
           </motion.button>
