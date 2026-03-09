@@ -25,6 +25,18 @@ import Container from '@/components/layout/Container'
 import Card from '@/components/ui/Card'
 import FadeIn from '@/components/animations/FadeIn'
 
+// Vos nouvelles couleurs
+const colors = {
+  primary: '#F5C505',
+  primaryDark: '#F3BB00',
+  secondary: '#1A05A2',
+  secondaryDark: '#03045F',
+  accent: '#340DA4',
+  accentDark: '#42009E',
+  goldLight: '#E1A624',
+  lightBg: '#F8F9FF'
+}
+
 // Fonction cn simple
 const cn = (...classes: (string | undefined | false)[]) => {
   return classes.filter(Boolean).join(' ')
@@ -32,10 +44,10 @@ const cn = (...classes: (string | undefined | false)[]) => {
 
 export default function CommunautePage() {
   const stats = [
-    { value: '50 000+', label: 'Membres actifs', icon: <Users className="w-6 h-6" />, color: '#1B3B4F' },
-    { value: '500+', label: 'Projets financés', icon: <TrendingUp className="w-6 h-6" />, color: '#2C5F7C' },
-    { value: '3 000+', label: 'Discussions', icon: <MessageCircle className="w-6 h-6" />, color: '#4A7C9C' },
-    { value: '15+', label: 'Événements/an', icon: <Calendar className="w-6 h-6" />, color: '#6B9AB8' }
+    { value: '50 000+', label: 'Membres actifs', icon: <Users className="w-5 h-5 sm:w-6 sm:h-6" />, color: colors.secondaryDark },
+    { value: '500+', label: 'Projets financés', icon: <TrendingUp className="w-5 h-5 sm:w-6 sm:h-6" />, color: colors.secondary },
+    { value: '3 000+', label: 'Discussions', icon: <MessageCircle className="w-5 h-5 sm:w-6 sm:h-6" />, color: colors.accent },
+    { value: '15+', label: 'Événements/an', icon: <Calendar className="w-5 h-5 sm:w-6 sm:h-6" />, color: colors.accentDark }
   ]
 
   const testimonials = [
@@ -174,53 +186,53 @@ export default function CommunautePage() {
   ]
 
   return (
-    <div className="min-h-screen" style={{
-      background: 'linear-gradient(to bottom, #F5F0E6, white)'
-    }}>
-      {/* Hero Section */}
-      <section className="relative py-20 overflow-hidden">
+    <div className="min-h-screen bg-linear-to-b from-[#F8F9FF] to-white">
+      {/* Hero Section - Harmonisé */}
+      <section className="relative py-12 sm:py-16 lg:py-20 overflow-hidden bg-linear-to-b from-[#F8F9FF] to-white">
         <Container>
           <FadeIn>
-            <div className="text-center max-w-3xl mx-auto">
+            <div className="text-center max-w-3xl mx-auto px-4 sm:px-6">
               <motion.div
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 transition={{ delay: 0.2, type: 'spring' }}
-                className="inline-flex items-center justify-center w-20 h-20 rounded-2xl mb-6"
+                className="inline-flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 rounded-2xl mb-4 sm:mb-6 mx-auto"
                 style={{
-                  backgroundColor: '#F5F0E6',
-                  boxShadow: '0 10px 25px -5px rgba(212, 175, 55, 0.2)'
+                  backgroundColor: colors.lightBg,
+                  boxShadow: `0 10px 25px -5px ${colors.primary}30`
                 }}
               >
-                <Users className="w-10 h-10" style={{ color: '#D4AF37' }} />
+                <Users className="w-8 h-8 sm:w-10 sm:h-10" style={{ color: colors.primary }} />
               </motion.div>
 
-              <h1 className="text-4xl md:text-5xl font-bold mb-4" style={{ color: '#1B3B4F' }}>
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4" style={{ color: colors.secondaryDark }}>
                 Communauté OGIAES
               </h1>
 
-              <p className="text-xl mb-8 max-w-2xl mx-auto" style={{ color: '#4A7C9C' }}>
+              <p className="text-base sm:text-lg lg:text-xl mb-6 sm:mb-8 max-w-2xl mx-auto px-4" style={{ color: colors.accent }}>
                 Rejoignez une communauté passionnée qui construit ensemble l'avenir économique de l'AES
               </p>
 
-              <div className="flex flex-wrap gap-4 justify-center">
-                <Link href="/auth/register">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4">
+                <Link href="/auth/register" className="w-full sm:w-auto">
                   <Button
                     size="lg"
-                    style={{ backgroundColor: '#D4AF37', color: '#1B3B4F' }}
+                    className="w-full sm:w-auto shadow-lg hover:scale-105 transition-transform"
+                    style={{ backgroundColor: colors.primary, color: colors.secondaryDark }}
                   >
                     Rejoindre la communauté
-                    <UserPlus className="ml-2 w-5 h-5" />
+                    <UserPlus className="ml-2 w-4 h-4 sm:w-5 sm:h-5" />
                   </Button>
                 </Link>
-                <Link href="/communaute/forum">
+                <Link href="/communaute/forum" className="w-full sm:w-auto">
                   <Button
                     variant="outline"
                     size="lg"
-                    style={{ borderColor: '#2C5F7C', color: '#2C5F7C' }}
+                    className="w-full sm:w-auto hover:scale-105 transition-transform"
+                    style={{ borderColor: colors.secondary, color: colors.secondary }}
                   >
                     Explorer le forum
-                    <MessageCircle className="ml-2 w-4 h-4" />
+                    <MessageCircle className="ml-2 w-4 h-4 sm:w-5 sm:h-5" />
                   </Button>
                 </Link>
               </div>
@@ -229,10 +241,10 @@ export default function CommunautePage() {
         </Container>
       </section>
 
-      {/* Stats Section */}
-      <section className="py-12">
+      {/* Stats Section - Responsive */}
+      <section className="py-8 sm:py-10 lg:py-12">
         <Container>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6 px-4">
             {stats.map((stat, index) => (
               <motion.div
                 key={index}
@@ -240,42 +252,42 @@ export default function CommunautePage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="bg-white rounded-xl p-6 text-center border"
+                className="bg-white rounded-lg sm:rounded-xl p-3 sm:p-4 lg:p-6 text-center border"
                 style={{
-                  borderColor: '#F5F0E6',
-                  boxShadow: '0 4px 20px rgba(27, 59, 79, 0.05)'
+                  borderColor: `${colors.primary}20`,
+                  boxShadow: `0 4px 20px ${colors.secondaryDark}10`
                 }}
               >
                 <div
-                  className="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3"
+                  className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 rounded-full flex items-center justify-center mx-auto mb-2 sm:mb-3"
                   style={{
-                    backgroundColor: '#F5F0E6',
+                    backgroundColor: colors.lightBg,
                     color: stat.color
                   }}
                 >
                   {stat.icon}
                 </div>
-                <div className="text-2xl font-bold mb-1" style={{ color: '#1B3B4F' }}>{stat.value}</div>
-                <div className="text-sm" style={{ color: '#4A7C9C' }}>{stat.label}</div>
+                <div className="text-base sm:text-lg lg:text-2xl font-bold mb-0.5 sm:mb-1" style={{ color: colors.secondaryDark }}>{stat.value}</div>
+                <div className="text-xs sm:text-sm" style={{ color: colors.accent }}>{stat.label}</div>
               </motion.div>
             ))}
           </div>
         </Container>
       </section>
 
-      {/* Testimonials */}
-      <section className="py-20">
+      {/* Testimonials - Responsive */}
+      <section className="py-12 sm:py-16 lg:py-20">
         <Container>
           <FadeIn>
-            <h2 className="text-3xl font-bold text-center mb-4" style={{ color: '#1B3B4F' }}>
+            <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-center mb-2 sm:mb-3 lg:mb-4 px-4" style={{ color: colors.secondaryDark }}>
               Ils nous font confiance
             </h2>
-            <p className="text-xl text-center mb-12 max-w-2xl mx-auto" style={{ color: '#4A7C9C' }}>
+            <p className="text-base sm:text-lg lg:text-xl text-center mb-8 sm:mb-10 lg:mb-12 max-w-2xl mx-auto px-4" style={{ color: colors.accent }}>
               Découvrez les témoignages de membres de la communauté
             </p>
           </FadeIn>
 
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid sm:grid-cols-2 gap-4 sm:gap-5 lg:gap-6 px-4">
             {testimonials.map((testimonial, index) => (
               <motion.div
                 key={index}
@@ -284,58 +296,58 @@ export default function CommunautePage() {
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
               >
-                <Card className="h-full">
-                  <div className="flex items-start justify-between mb-4">
-                    <div className="flex items-center space-x-3">
+                <Card className="h-full p-4 sm:p-5 lg:p-6">
+                  <div className="flex items-start justify-between mb-3 sm:mb-4">
+                    <div className="flex items-center space-x-2 sm:space-x-3">
                       <div
-                        className="w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-lg"
+                        className="w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center text-white font-bold text-sm sm:text-lg"
                         style={{
-                          background: 'linear-gradient(135deg, #1B3B4F 0%, #2C5F7C 100%)'
+                          background: `linear-gradient(135deg, ${colors.secondaryDark} 0%, ${colors.accent} 100%)`
                         }}
                       >
                         {testimonial.avatar}
                       </div>
                       <div>
-                        <h3 className="font-semibold" style={{ color: '#1B3B4F' }}>{testimonial.name}</h3>
-                        <p className="text-sm" style={{ color: '#4A7C9C' }}>{testimonial.role}</p>
-                        <p className="text-xs flex items-center mt-1" style={{ color: '#6B9AB8' }}>
-                          <MapPin size={12} className="mr-1" />
+                        <h3 className="font-semibold text-sm sm:text-base" style={{ color: colors.secondaryDark }}>{testimonial.name}</h3>
+                        <p className="text-xs sm:text-sm" style={{ color: colors.accent }}>{testimonial.role}</p>
+                        <p className="text-[10px] sm:text-xs flex items-center mt-0.5 sm:mt-1" style={{ color: colors.accentDark }}>
+                          <MapPin size={10} className="sm:size-12 mr-1" />
                           {testimonial.location}
                         </p>
                       </div>
                     </div>
-                    <div className="flex" style={{ color: '#D4AF37' }}>
+                    <div className="flex gap-0.5" style={{ color: colors.primary }}>
                       {[...Array(testimonial.rating)].map((_, i) => (
-                        <Star key={i} size={16} fill="currentColor" />
+                        <Star key={i} size={12} className="sm:size-14" fill="currentColor" />
                       ))}
                     </div>
                   </div>
 
-                  <p className="mb-4 italic" style={{ color: '#2C5F7C' }}>"{testimonial.content}"</p>
+                  <p className="mb-3 sm:mb-4 italic text-xs sm:text-sm" style={{ color: colors.secondary }}>"{testimonial.content}"</p>
 
-                  <div className="flex flex-wrap gap-2 text-sm border-t pt-4" style={{ borderColor: '#F5F0E6' }}>
+                  <div className="flex flex-wrap gap-1.5 sm:gap-2 text-xs sm:text-sm border-t pt-3 sm:pt-4" style={{ borderColor: `${colors.primary}20` }}>
                     {'invested' in testimonial && (
                       <>
-                        <span className="px-2 py-1 rounded-full" style={{ backgroundColor: '#F5F0E6', color: '#1B3B4F' }}>
+                        <span className="px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-xs" style={{ backgroundColor: colors.lightBg, color: colors.secondaryDark }}>
                           Investi: {testimonial.invested}
                         </span>
-                        <span className="px-2 py-1 rounded-full" style={{ backgroundColor: '#F5F0E6', color: '#1B3B4F' }}>
+                        <span className="px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-xs" style={{ backgroundColor: colors.lightBg, color: colors.secondaryDark }}>
                           {testimonial.projects} projets
                         </span>
                       </>
                     )}
                     {'funded' in testimonial && (
                       <>
-                        <span className="px-2 py-1 rounded-full" style={{ backgroundColor: '#F5F0E6', color: '#1B3B4F' }}>
+                        <span className="px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-xs" style={{ backgroundColor: colors.lightBg, color: colors.secondaryDark }}>
                           Collecté: {testimonial.funded}
                         </span>
-                        <span className="px-2 py-1 rounded-full" style={{ backgroundColor: '#F5F0E6', color: '#1B3B4F' }}>
-                          {testimonial.investors} investisseurs
+                        <span className="px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-xs" style={{ backgroundColor: colors.lightBg, color: colors.secondaryDark }}>
+                          {testimonial.investors} invest.
                         </span>
                       </>
                     )}
                     {'expertise' in testimonial && (
-                      <span className="px-2 py-1 rounded-full" style={{ backgroundColor: '#F5F0E6', color: '#1B3B4F' }}>
+                      <span className="px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-xs" style={{ backgroundColor: colors.lightBg, color: colors.secondaryDark }}>
                         {testimonial.expertise}
                       </span>
                     )}
@@ -347,23 +359,23 @@ export default function CommunautePage() {
         </Container>
       </section>
 
-      {/* Forum Preview */}
-      <section className="py-20 bg-white">
+      {/* Forum Preview - Responsive */}
+      <section className="py-12 sm:py-16 lg:py-20 bg-white">
         <Container>
-          <div className="flex justify-between items-center mb-8">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 sm:mb-8 gap-3 px-4">
             <div>
-              <h2 className="text-2xl font-bold" style={{ color: '#1B3B4F' }}>Forum de discussion</h2>
-              <p style={{ color: '#4A7C9C' }}>Échangez avec la communauté</p>
+              <h2 className="text-lg sm:text-xl lg:text-2xl font-bold" style={{ color: colors.secondaryDark }}>Forum de discussion</h2>
+              <p className="text-xs sm:text-sm" style={{ color: colors.accent }}>Échangez avec la communauté</p>
             </div>
-            <Link href="/communaute/forum">
-              <Button variant="ghost" style={{ color: '#2C5F7C' }}>
+            <Link href="/communaute/forum" className="w-full sm:w-auto">
+              <Button variant="ghost" className="w-full sm:w-auto text-sm" style={{ color: colors.secondary }}>
                 Voir tout
-                <ChevronRight className="ml-1 w-4 h-4" />
+                <ChevronRight className="ml-1 w-3 h-3 sm:w-4 sm:h-4" />
               </Button>
             </Link>
           </div>
 
-          <div className="space-y-4">
+          <div className="space-y-2 sm:space-y-3 px-4">
             {forumTopics.map((topic, index) => (
               <motion.div
                 key={index}
@@ -373,39 +385,39 @@ export default function CommunautePage() {
                 transition={{ delay: index * 0.05 }}
               >
                 <Link href={`/communaute/forum/${index}`}>
-                  <Card hover className="p-4">
-                    <div className="flex flex-wrap items-start justify-between gap-4">
-                      <div className="flex-1">
-                        <div className="flex items-center space-x-2 mb-2">
+                  <Card hover className="p-3 sm:p-4">
+                    <div className="flex flex-wrap items-start justify-between gap-2 sm:gap-4">
+                      <div className="flex-1 min-w-0">
+                        <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 mb-1 sm:mb-2">
                           <span className={cn(
-                            "px-2 py-0.5 rounded-full text-xs font-medium",
-                            topic.category === 'Agriculture' && "bg-[#1B3B4F] text-white",
-                            topic.category === 'Témoignages' && "bg-[#2C5F7C] text-white",
-                            topic.category === 'Conseils' && "bg-[#4A7C9C] text-white",
-                            topic.category === 'Annonces' && "bg-[#D4AF37] text-[#1B3B4F]"
+                            "px-1.5 sm:px-2 py-0.5 rounded-full text-[10px] sm:text-xs font-medium",
+                            topic.category === 'Agriculture' && `bg-[${colors.secondaryDark}] text-white`,
+                            topic.category === 'Témoignages' && `bg-[${colors.secondary}] text-white`,
+                            topic.category === 'Conseils' && `bg-[${colors.accent}] text-white`,
+                            topic.category === 'Annonces' && `bg-[${colors.primary}] text-[${colors.secondaryDark}]`
                           )}>
                             {topic.category}
                           </span>
                           {topic.pinned && (
-                            <span className="px-2 py-0.5 rounded-full text-xs" style={{ backgroundColor: '#F5F0E6', color: '#1B3B4F' }}>
+                            <span className="px-1.5 sm:px-2 py-0.5 rounded-full text-[10px] sm:text-xs" style={{ backgroundColor: colors.lightBg, color: colors.secondaryDark }}>
                               Épinglé
                             </span>
                           )}
                         </div>
-                        <h3 className="font-semibold mb-1 group-hover:text-[#D4AF37] transition-colors" style={{ color: '#1B3B4F' }}>
+                        <h3 className="font-semibold text-xs sm:text-sm mb-0.5 sm:mb-1 truncate" style={{ color: colors.secondaryDark }}>
                           {topic.title}
                         </h3>
-                        <p className="text-sm" style={{ color: '#4A7C9C' }}>
+                        <p className="text-[10px] sm:text-xs truncate" style={{ color: colors.accent }}>
                           Par {topic.author} • {topic.lastActivity}
                         </p>
                       </div>
-                      <div className="flex items-center space-x-4 text-sm" style={{ color: '#4A7C9C' }}>
-                        <span className="flex items-center">
-                          <MessageSquare size={16} className="mr-1" />
+                      <div className="flex items-center space-x-2 sm:space-x-3 text-[10px] sm:text-xs" style={{ color: colors.accent }}>
+                        <span className="flex items-center whitespace-nowrap">
+                          <MessageSquare size={12} className="sm:size-14 mr-0.5 sm:mr-1" />
                           {topic.replies}
                         </span>
-                        <span className="flex items-center">
-                          <Eye size={16} className="mr-1" />
+                        <span className="flex items-center whitespace-nowrap">
+                          <Eye size={12} className="sm:size-14 mr-0.5 sm:mr-1" />
                           {topic.views}
                         </span>
                       </div>
@@ -418,14 +430,14 @@ export default function CommunautePage() {
         </Container>
       </section>
 
-      {/* Community Leaders */}
-      <section className="py-20">
+      {/* Community Leaders - Responsive */}
+      <section className="py-12 sm:py-16 lg:py-20">
         <Container>
-          <h2 className="text-2xl font-bold mb-8 text-center" style={{ color: '#1B3B4F' }}>
+          <h2 className="text-lg sm:text-xl lg:text-2xl font-bold mb-6 sm:mb-8 text-center px-4" style={{ color: colors.secondaryDark }}>
             Membres actifs de la communauté
           </h2>
 
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 lg:gap-6 px-4">
             {communityLeaders.map((leader, index) => (
               <motion.div
                 key={index}
@@ -434,44 +446,44 @@ export default function CommunautePage() {
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
               >
-                <Card className="text-center">
+                <Card className="text-center p-4 sm:p-5 lg:p-6">
                   <div className="relative">
                     <div
-                      className="w-20 h-20 rounded-full flex items-center justify-center text-white font-bold text-2xl mx-auto mb-4"
+                      className="w-14 h-14 sm:w-16 sm:h-16 lg:w-20 lg:h-20 rounded-full flex items-center justify-center text-white font-bold text-lg sm:text-xl lg:text-2xl mx-auto mb-3 sm:mb-4"
                       style={{
-                        background: 'linear-gradient(135deg, #D4AF37 0%, #F5E7B2 100%)',
-                        color: '#1B3B4F'
+                        background: `linear-gradient(135deg, ${colors.primary} 0%, ${colors.goldLight} 100%)`,
+                        color: colors.secondaryDark
                       }}
                     >
                       {leader.avatar}
                     </div>
                     <span
-                      className="absolute top-0 right-1/2 transform translate-x-12 text-xs font-semibold px-2 py-1 rounded-full"
+                      className="absolute top-0 right-1/2 transform translate-x-8 sm:translate-x-10 lg:translate-x-12 text-[8px] sm:text-[10px] lg:text-xs font-semibold px-1 sm:px-1.5 lg:px-2 py-0.5 rounded-full whitespace-nowrap"
                       style={{
-                        backgroundColor: '#D4AF37',
-                        color: '#1B3B4F'
+                        backgroundColor: colors.primary,
+                        color: colors.secondaryDark
                       }}
                     >
                       {leader.badge}
                     </span>
                   </div>
-                  <h3 className="font-semibold" style={{ color: '#1B3B4F' }}>{leader.name}</h3>
-                  <p className="text-sm mb-3" style={{ color: '#4A7C9C' }}>{leader.role}</p>
-                  <div className="flex justify-center space-x-4 text-sm" style={{ color: '#4A7C9C' }}>
+                  <h3 className="font-semibold text-sm sm:text-base mb-0.5" style={{ color: colors.secondaryDark }}>{leader.name}</h3>
+                  <p className="text-xs sm:text-sm mb-2 sm:mb-3" style={{ color: colors.accent }}>{leader.role}</p>
+                  <div className="flex justify-center space-x-3 sm:space-x-4 text-xs sm:text-sm" style={{ color: colors.accent }}>
                     <span>
-                      <MessageSquare size={14} className="inline mr-1" />
+                      <MessageSquare size={12} className="sm:size-14 inline mr-1" />
                       {leader.contributions}
                     </span>
                     <span>
-                      <Users size={14} className="inline mr-1" />
+                      <Users size={12} className="sm:size-14 inline mr-1" />
                       {leader.followers}
                     </span>
                   </div>
                   <Button
                     variant="outline"
                     size="sm"
-                    className="w-full mt-4"
-                    style={{ borderColor: '#2C5F7C', color: '#2C5F7C' }}
+                    className="w-full mt-3 sm:mt-4 text-xs sm:text-sm py-1.5 sm:py-2"
+                    style={{ borderColor: colors.secondary, color: colors.secondary }}
                   >
                     Suivre
                   </Button>
@@ -482,25 +494,23 @@ export default function CommunautePage() {
         </Container>
       </section>
 
-      {/* Events */}
-      <section className="py-20" style={{
-        background: 'linear-gradient(to bottom, white, #F5F0E6)'
-      }}>
+      {/* Events - Responsive */}
+      <section className="py-12 sm:py-16 lg:py-20 bg-linear-to-b from-white to-[#F8F9FF]">
         <Container>
-          <div className="flex justify-between items-center mb-8">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 sm:mb-8 gap-3 px-4">
             <div>
-              <h2 className="text-2xl font-bold" style={{ color: '#1B3B4F' }}>Événements à venir</h2>
-              <p style={{ color: '#4A7C9C' }}>Participez aux rencontres de la communauté</p>
+              <h2 className="text-lg sm:text-xl lg:text-2xl font-bold" style={{ color: colors.secondaryDark }}>Événements à venir</h2>
+              <p className="text-xs sm:text-sm" style={{ color: colors.accent }}>Participez aux rencontres de la communauté</p>
             </div>
-            <Link href="/communaute/evenements">
-              <Button variant="ghost" style={{ color: '#2C5F7C' }}>
+            <Link href="/communaute/evenements" className="w-full sm:w-auto">
+              <Button variant="ghost" className="w-full sm:w-auto text-sm" style={{ color: colors.secondary }}>
                 Tous les événements
-                <ChevronRight className="ml-1 w-4 h-4" />
+                <ChevronRight className="ml-1 w-3 h-3 sm:w-4 sm:h-4" />
               </Button>
             </Link>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 lg:gap-6 px-4">
             {upcomingEvents.map((event, index) => (
               <motion.div
                 key={index}
@@ -509,28 +519,28 @@ export default function CommunautePage() {
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
               >
-                <Card hover className="h-full" >
-                  <div className="text-4xl mb-4">{event.image}</div>
-                  <h3 className="font-semibold mb-2" style={{ color: '#1B3B4F' }}>{event.title}</h3>
-                  <div className="space-y-2 text-sm mb-4" style={{ color: '#4A7C9C' }}>
+                <Card hover className="h-full p-4 sm:p-5 lg:p-6">
+                  <div className="text-3xl sm:text-4xl mb-3 sm:mb-4">{event.image}</div>
+                  <h3 className="font-semibold text-sm sm:text-base mb-2" style={{ color: colors.secondaryDark }}>{event.title}</h3>
+                  <div className="space-y-1.5 sm:space-y-2 text-xs sm:text-sm mb-3 sm:mb-4" style={{ color: colors.accent }}>
                     <p className="flex items-center">
-                      <Calendar size={14} className="mr-2" />
-                      {event.date} à {event.time}
+                      <Calendar size={12} className="sm:size-14 mr-1.5 sm:mr-2" />
+                      <span className="truncate">{event.date} à {event.time}</span>
                     </p>
                     <p className="flex items-center">
-                      <Users size={14} className="mr-2" />
+                      <Users size={12} className="sm:size-14 mr-1.5 sm:mr-2" />
                       {event.attendees} participants
                     </p>
                     <p className="flex items-center">
-                      <Star size={14} className="mr-2" />
-                      {event.speaker}
+                      <Star size={12} className="sm:size-14 mr-1.5 sm:mr-2" />
+                      <span className="truncate">{event.speaker}</span>
                     </p>
                   </div>
                   <Button
                     variant="outline"
                     size="sm"
-                    className="w-full"
-                    style={{ borderColor: '#D4AF37', color: '#D4AF37' }}
+                    className="w-full text-xs sm:text-sm py-1.5 sm:py-2"
+                    style={{ borderColor: colors.primary, color: colors.primary }}
                   >
                     S'inscrire
                   </Button>
@@ -541,46 +551,48 @@ export default function CommunautePage() {
         </Container>
       </section>
 
-      {/* CTA */}
-      <section className="py-20">
+      {/* CTA - Responsive */}
+      <section className="py-12 sm:py-16 lg:py-20">
         <Container>
           <div
-            className="rounded-3xl p-12 text-center text-white relative overflow-hidden"
+            className="rounded-xl sm:rounded-2xl lg:rounded-3xl p-6 sm:p-8 lg:p-12 text-center text-white relative overflow-hidden mx-4"
             style={{
-              background: 'linear-gradient(135deg, #1B3B4F 0%, #2C5F7C 100%)',
+              background: `linear-gradient(135deg, ${colors.secondaryDark} 0%, ${colors.accent} 100%)`,
             }}
           >
             {/* Éléments décoratifs */}
-            <div className="absolute top-0 right-0 w-64 h-64 bg-[#D4AF37] rounded-full blur-3xl opacity-10" />
-            <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#D4AF37] rounded-full blur-3xl opacity-10" />
+            <div className="absolute top-0 right-0 w-32 sm:w-48 lg:w-64 h-32 sm:h-48 lg:h-64 bg-[#F5C505] rounded-full blur-2xl sm:blur-3xl opacity-10" />
+            <div className="absolute bottom-0 left-0 w-32 sm:w-48 lg:w-64 h-32 sm:h-48 lg:h-64 bg-[#F5C505] rounded-full blur-2xl sm:blur-3xl opacity-10" />
 
             <div className="relative z-10">
-              <h2 className="text-3xl font-bold mb-4">
+              <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-2 sm:mb-3 lg:mb-4">
                 Rejoignez la communauté
               </h2>
-              <p className="text-xl mb-8 max-w-2xl mx-auto" style={{ color: '#F5F0E6' }}>
+              <p className="text-sm sm:text-base lg:text-xl mb-4 sm:mb-6 lg:mb-8 max-w-2xl mx-auto" style={{ color: '#F8F9FF' }}>
                 Ensemble, construisons l'avenir économique de l'AES
               </p>
-              <div className="flex flex-wrap gap-4 justify-center">
-                <Link href="/auth/register">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
+                <Link href="/auth/register" className="w-full sm:w-auto">
                   <Button
                     size="lg"
+                    className="w-full sm:w-auto hover:scale-105 transition-transform"
                     style={{
-                      backgroundColor: '#D4AF37',
-                      color: '#1B3B4F',
+                      backgroundColor: colors.primary,
+                      color: colors.secondaryDark,
                       border: 'none'
                     }}
                   >
                     Créer mon compte
                   </Button>
                 </Link>
-                <Link href="/communaute/forum">
+                <Link href="/communaute/forum" className="w-full sm:w-auto">
                   <Button
                     variant="outline"
                     size="lg"
+                    className="w-full sm:w-auto hover:scale-105 transition-transform"
                     style={{
-                      borderColor: '#F5F0E6',
-                      color: '#F5F0E6'
+                      borderColor: '#F8F9FF',
+                      color: '#F8F9FF'
                     }}
                   >
                     Visiter le forum

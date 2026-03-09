@@ -2,7 +2,7 @@
 'use client'
 
 import Link from 'next/link'
-import { motion, AnimatePresence, Variants } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import {
   Facebook,
   Twitter,
@@ -20,6 +20,18 @@ import { useState, useEffect } from 'react'
 export default function Footer() {
   const currentYear = new Date().getFullYear()
   const [showScrollTop, setShowScrollTop] = useState(false)
+
+  // Vos nouvelles couleurs
+  const colors = {
+    primary: '#F5C505',
+    primaryDark: '#F3BB00',
+    secondary: '#1A05A2',
+    secondaryDark: '#03045F',
+    accent: '#340DA4',
+    accentDark: '#42009E',
+    goldLight: '#E1A624',
+    lightBg: '#F8F9FF'
+  }
 
   useEffect(() => {
     const handleScroll = () => {
@@ -61,234 +73,106 @@ export default function Footer() {
     { icon: <Instagram size={20} />, href: '#', label: 'Instagram' }
   ]
 
-  const containerVariants: Variants = {
-    hidden: {
-      opacity: 0
-    },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.2
-      }
-    }
-  }
-
-  const itemVariants: Variants = {
-    hidden: {
-      y: 20,
-      opacity: 0
-    },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        type: "spring",
-        stiffness: 100,
-        damping: 15
-      }
-    }
-  }
-
-  const socialIconVariants: Variants = {
-    hidden: {
-      opacity: 0,
-      scale: 0
-    },
-    visible: (custom: number) => ({
-      opacity: 1,
-      scale: 1,
-      transition: {
-        delay: custom * 0.1,
-        type: "spring",
-        stiffness: 200,
-        damping: 15
-      }
-    }),
-    hover: {
-      y: -5,
-      scale: 1.1,
-      transition: {
-        type: "spring",
-        stiffness: 400,
-        damping: 20
-      }
-    },
-    tap: {
-      scale: 0.9
-    }
-  }
-
-  const linkHoverVariants: Variants = {
-    initial: {
-      x: 0
-    },
-    hover: {
-      x: 5,
-      transition: {
-        type: "spring",
-        stiffness: 300,
-        damping: 20
-      }
-    }
-  }
-
-  const scrollButtonVariants: Variants = {
-    hidden: {
-      opacity: 0,
-      scale: 0,
-      y: 20
-    },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      y: 0,
-      transition: {
-        type: "spring",
-        stiffness: 400,
-        damping: 25
-      }
-    },
-    exit: {
-      opacity: 0,
-      scale: 0,
-      y: 20,
-      transition: {
-        duration: 0.2
-      }
-    },
-    hover: {
-      scale: 1.1,
-      y: -5,
-      transition: {
-        type: "spring",
-        stiffness: 400,
-        damping: 20
-      }
-    },
-    tap: {
-      scale: 0.9
-    }
-  }
-
-  const bottomBarVariants: Variants = {
-    hidden: {
-      opacity: 0,
-      y: 20
-    },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        type: "spring",
-        stiffness: 100,
-        damping: 20,
-        delay: 0.3
-      }
-    }
-  }
-
-  // Créer une version motion de Link
   const MotionLink = motion(Link)
 
   return (
     <>
-      <footer className="relative" style={{ backgroundColor: '#1B3B4F' }}>
+      <footer className="relative" style={{ backgroundColor: colors.secondaryDark }}>
         {/* Effet de vague décoratif */}
         <div className="absolute top-0 left-0 right-0 h-1" style={{
-          background: 'linear-gradient(to right, #D4AF37, #F5E7B2, #D4AF37)'
+          background: `linear-gradient(to right, ${colors.primary}, ${colors.goldLight}, ${colors.primary})`
         }} />
 
         <Container>
-          {/* Main Footer avec animations */}
+          {/* Main Footer - Responsive Grid */}
           <motion.div
-            variants={containerVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-50px" }}
-            className="py-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10"
+            variants={{
+              hidden: { opacity: 0 },
+              visible: {
+                opacity: 1,
+                transition: { staggerChildren: 0.1 }
+              }
+            }}
+            className="py-12 sm:py-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10"
           >
             {/* About */}
-            <motion.div variants={itemVariants}>
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                transition={{ type: "spring", stiffness: 400, damping: 20 }}
-                className="flex items-center space-x-2 mb-6"
-              >
+            <motion.div
+              variants={{
+                hidden: { y: 20, opacity: 0 },
+                visible: { y: 0, opacity: 1 }
+              }}
+              className="text-center sm:text-left"
+            >
+              <div className="flex items-center justify-center sm:justify-start space-x-2 mb-6">
                 <motion.div
                   whileHover={{ rotate: 360 }}
                   transition={{ duration: 0.5 }}
-                  className="w-12 h-12 rounded-xl flex items-center justify-center shadow-lg"
+                  className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center shadow-lg"
                   style={{
-                    background: 'linear-gradient(135deg, #2C5F7C 0%, #4A7C9C 100%)'
+                    background: `linear-gradient(135deg, ${colors.secondary} 0%, ${colors.accent} 100%)`
                   }}
                 >
-                  <span className="text-white font-bold text-xl" style={{ color: '#D4AF37' }}>O</span>
+                  <span className="text-white font-bold text-lg sm:text-xl" style={{ color: colors.primary }}>O</span>
                 </motion.div>
-                <span className="font-bold text-xl text-white">OGIAES</span>
-              </motion.div>
+                <span className="font-bold text-lg sm:text-xl text-white">OGIAES</span>
+              </div>
 
-              <p className="text-sm mb-6 leading-relaxed" style={{ color: '#F5F0E6' }}>
+              <p className="text-xs sm:text-sm mb-6 leading-relaxed max-w-xs mx-auto sm:mx-0" style={{ color: colors.lightBg }}>
                 Plateforme d'investissement citoyen pour le développement économique de l'espace AES.
                 Ensemble, construisons l'avenir de notre région.
               </p>
 
-              <div className="flex space-x-3">
+              {/* Social Icons - Responsive */}
+              <div className="flex justify-center sm:justify-start space-x-2 sm:space-x-3">
                 {socialLinks.map((social, index) => (
                   <motion.a
                     key={social.label}
                     href={social.href}
-                    variants={socialIconVariants}
-                    initial="hidden"
-                    animate="visible"
-                    whileHover="hover"
-                    whileTap="tap"
+                    whileHover={{ y: -3, scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
                     custom={index}
-                    className="w-10 h-10 rounded-lg flex items-center justify-center transition-colors duration-300"
+                    className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg flex items-center justify-center transition-all duration-300"
                     style={{
-                      backgroundColor: '#2C5F7C',
-                      color: '#F5F0E6'
+                      backgroundColor: colors.secondary,
+                      color: colors.lightBg
                     }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.backgroundColor = '#D4AF37'
-                      e.currentTarget.style.color = '#1B3B4F'
+                      e.currentTarget.style.backgroundColor = colors.primary
+                      e.currentTarget.style.color = colors.secondaryDark
                     }}
                     onMouseLeave={(e) => {
-                      e.currentTarget.style.backgroundColor = '#2C5F7C'
-                      e.currentTarget.style.color = '#F5F0E6'
+                      e.currentTarget.style.backgroundColor = colors.secondary
+                      e.currentTarget.style.color = colors.lightBg
                     }}
                     aria-label={social.label}
                   >
-                    {social.icon}
+                    <span className="scale-75 sm:scale-100">{social.icon}</span>
                   </motion.a>
                 ))}
               </div>
             </motion.div>
 
             {/* Platform Links */}
-            <motion.div variants={itemVariants}>
-              <h3 className="font-semibold mb-6 text-lg" style={{ color: '#D4AF37' }}>Plateforme</h3>
-              <ul className="space-y-3">
+            <motion.div
+              variants={{
+                hidden: { y: 20, opacity: 0 },
+                visible: { y: 0, opacity: 1 }
+              }}
+              className="text-center sm:text-left"
+            >
+              <h3 className="font-semibold mb-4 sm:mb-6 text-base sm:text-lg" style={{ color: colors.primary }}>Plateforme</h3>
+              <ul className="space-y-2 sm:space-y-3">
                 {footerLinks.plateforme.map((link) => (
-                  <motion.li
-                    key={link.href}
-                    variants={linkHoverVariants}
-                    initial="initial"
-                    whileHover="hover"
-                  >
+                  <motion.li key={link.href}>
                     <MotionLink
                       href={link.href}
-                      className="text-sm flex items-center group"
-                      style={{ color: '#F5F0E6' }}
-                      whileHover={{ color: '#D4AF37' }}
+                      className="text-xs sm:text-sm inline-block transition-colors"
+                      style={{ color: colors.lightBg }}
+                      whileHover={{ x: 5, color: colors.primary }}
                     >
-                      <motion.span
-                        className="w-1 h-1 rounded-full mr-2"
-                        style={{ backgroundColor: '#D4AF37' }}
-                        initial={{ opacity: 0 }}
-                        whileHover={{ opacity: 1 }}
-                        transition={{ duration: 0.2 }}
-                      />
                       {link.label}
                     </MotionLink>
                   </motion.li>
@@ -297,29 +181,23 @@ export default function Footer() {
             </motion.div>
 
             {/* Legal Links */}
-            <motion.div variants={itemVariants}>
-              <h3 className="font-semibold mb-6 text-lg" style={{ color: '#D4AF37' }}>Informations légales</h3>
-              <ul className="space-y-3">
+            <motion.div
+              variants={{
+                hidden: { y: 20, opacity: 0 },
+                visible: { y: 0, opacity: 1 }
+              }}
+              className="text-center sm:text-left"
+            >
+              <h3 className="font-semibold mb-4 sm:mb-6 text-base sm:text-lg" style={{ color: colors.primary }}>Informations légales</h3>
+              <ul className="space-y-2 sm:space-y-3">
                 {footerLinks.legal.map((link) => (
-                  <motion.li
-                    key={link.href}
-                    variants={linkHoverVariants}
-                    initial="initial"
-                    whileHover="hover"
-                  >
+                  <motion.li key={link.href}>
                     <MotionLink
                       href={link.href}
-                      className="text-sm flex items-center group"
-                      style={{ color: '#F5F0E6' }}
-                      whileHover={{ color: '#D4AF37' }}
+                      className="text-xs sm:text-sm inline-block transition-colors"
+                      style={{ color: colors.lightBg }}
+                      whileHover={{ x: 5, color: colors.primary }}
                     >
-                      <motion.span
-                        className="w-1 h-1 rounded-full mr-2"
-                        style={{ backgroundColor: '#D4AF37' }}
-                        initial={{ opacity: 0 }}
-                        whileHover={{ opacity: 1 }}
-                        transition={{ duration: 0.2 }}
-                      />
                       {link.label}
                     </MotionLink>
                   </motion.li>
@@ -328,64 +206,61 @@ export default function Footer() {
             </motion.div>
 
             {/* Contact */}
-            <motion.div variants={itemVariants}>
-              <h3 className="font-semibold mb-6 text-lg" style={{ color: '#D4AF37' }}>Contact</h3>
-              <ul className="space-y-4">
+            <motion.div
+              variants={{
+                hidden: { y: 20, opacity: 0 },
+                visible: { y: 0, opacity: 1 }
+              }}
+              className="text-center sm:text-left"
+            >
+              <h3 className="font-semibold mb-4 sm:mb-6 text-base sm:text-lg" style={{ color: colors.primary }}>Contact</h3>
+              <ul className="space-y-3 sm:space-y-4">
                 {footerLinks.contact.map((link, index) => (
-                  <motion.li
-                    key={index}
-                    variants={linkHoverVariants}
-                    initial="initial"
-                    whileHover="hover"
-                  >
+                  <motion.li key={index}>
                     <MotionLink
                       href={link.href}
-                      className="flex items-center space-x-3 text-sm group"
-                      style={{ color: '#F5F0E6' }}
-                      whileHover={{ color: '#D4AF37' }}
+                      className="flex items-center justify-center sm:justify-start space-x-2 sm:space-x-3 text-xs sm:text-sm transition-colors"
+                      style={{ color: colors.lightBg }}
+                      whileHover={{ x: 5, color: colors.primary }}
                     >
                       <motion.span
                         whileHover={{ scale: 1.2 }}
-                        transition={{ type: "spring", stiffness: 400, damping: 20 }}
-                        style={{ color: '#D4AF37' }}
+                        style={{ color: colors.primary }}
                       >
                         {link.icon}
                       </motion.span>
-                      <span>{link.label}</span>
+                      <span className="truncate max-w-[200px]">{link.label}</span>
                     </MotionLink>
                   </motion.li>
                 ))}
               </ul>
 
-              {/* Newsletter */}
+              {/* Newsletter - Responsive */}
               <motion.div
                 className="mt-6"
                 whileHover={{ scale: 1.02 }}
-                transition={{ type: "spring", stiffness: 400, damping: 20 }}
               >
-                <p className="text-sm mb-2" style={{ color: '#F5F0E6' }}>Restez informé</p>
-                <div className="flex">
+                <p className="text-xs sm:text-sm mb-2" style={{ color: colors.lightBg }}>Restez informé</p>
+                <div className="flex max-w-[250px] mx-auto sm:mx-0">
                   <input
                     type="email"
                     placeholder="Votre email"
-                    className="flex-1 px-3 py-2 rounded-l-lg text-sm focus:outline-none transition-colors"
+                    className="flex-1 px-2 sm:px-3 py-1.5 sm:py-2 rounded-l-lg text-xs sm:text-sm focus:outline-none transition-colors"
                     style={{
-                      backgroundColor: '#2C5F7C',
-                      borderColor: '#4A7C9C',
-                      color: '#F5F0E6'
+                      backgroundColor: colors.secondary,
+                      color: colors.lightBg,
                     }}
                   />
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    transition={{ type: "spring", stiffness: 400, damping: 20 }}
-                    className="px-4 py-2 rounded-r-lg transition-colors text-sm"
+                    className="px-3 sm:px-4 py-1.5 sm:py-2 rounded-r-lg transition-colors text-xs sm:text-sm whitespace-nowrap"
                     style={{
-                      backgroundColor: '#D4AF37',
-                      color: '#1B3B4F'
+                      background: colors.primary,
+                      color: colors.secondaryDark
                     }}
-                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#F5E7B2'}
-                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#D4AF37'}
+                    onMouseEnter={(e) => e.currentTarget.style.background = colors.goldLight}
+                    onMouseLeave={(e) => e.currentTarget.style.background = colors.primary}
                   >
                     OK
                   </motion.button>
@@ -394,20 +269,19 @@ export default function Footer() {
             </motion.div>
           </motion.div>
 
-          {/* Bottom Bar */}
+          {/* Bottom Bar - Responsive */}
           <motion.div
-            variants={bottomBarVariants}
-            initial="hidden"
-            whileInView="visible"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="py-6 border-t flex flex-col md:flex-row justify-between items-center text-sm"
-            style={{ borderColor: '#2C5F7C' }}
+            transition={{ delay: 0.3 }}
+            className="py-4 sm:py-6 border-t flex flex-col sm:flex-row justify-between items-center text-xs sm:text-sm gap-4 sm:gap-0"
+            style={{ borderColor: colors.secondary }}
           >
             <motion.p
               whileHover={{ scale: 1.05 }}
-              transition={{ type: "spring", stiffness: 400, damping: 20 }}
               className="flex items-center"
-              style={{ color: '#F5F0E6' }}
+              style={{ color: colors.lightBg }}
             >
               © {currentYear} OGIAES. Tous droits réservés.
               <motion.div
@@ -420,22 +294,21 @@ export default function Footer() {
                   repeatType: "reverse"
                 }}
               >
-                <Heart size={14} className="ml-2" style={{ color: '#D4AF37' }} />
+                <Heart size={12}  className="ml-1 sm:ml-2" style={{ color: colors.primary }} />
               </motion.div>
             </motion.p>
 
-            <div className="flex space-x-6 mt-4 md:mt-0">
+            <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
               {['Conditions', 'Confidentialité', 'Plan du site'].map((item) => (
                 <motion.div
                   key={item}
                   whileHover={{ y: -2 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 20 }}
                 >
                   <MotionLink
                     href={`/legal/${item.toLowerCase()}`}
                     className="transition-colors"
-                    style={{ color: '#F5F0E6' }}
-                    whileHover={{ color: '#D4AF37' }}
+                    style={{ color: colors.lightBg }}
+                    whileHover={{ color: colors.primary }}
                   >
                     {item}
                   </MotionLink>
@@ -446,27 +319,26 @@ export default function Footer() {
         </Container>
       </footer>
 
-      {/* Scroll to top button */}
+      {/* Scroll to top button - Responsive */}
       <AnimatePresence mode="wait">
         {showScrollTop && (
           <motion.button
             key="scroll-top"
-            variants={scrollButtonVariants}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-            whileHover="hover"
-            whileTap="tap"
+            initial={{ opacity: 0, scale: 0, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0, y: 20 }}
+            whileHover={{ scale: 1.1, y: -5 }}
+            whileTap={{ scale: 0.9 }}
             onClick={scrollToTop}
-            className="fixed bottom-8 right-8 z-50 p-3 rounded-full shadow-lg transition-colors"
+            className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 lg:bottom-8 lg:right-8 z-50 p-2 sm:p-2.5 lg:p-3 rounded-full shadow-lg transition-colors"
             style={{
-              backgroundColor: '#D4AF37',
-              color: '#1B3B4F'
+              background: colors.primary,
+              color: colors.secondaryDark
             }}
-            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#F5E7B2'}
-            onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#D4AF37'}
+            onMouseEnter={(e) => e.currentTarget.style.background = colors.goldLight}
+            onMouseLeave={(e) => e.currentTarget.style.background = colors.primary}
           >
-            <ArrowUp size={24} />
+            <ArrowUp size={20} className="sm:size-22 lg:size-24" />
           </motion.button>
         )}
       </AnimatePresence>

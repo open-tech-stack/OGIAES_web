@@ -1,8 +1,21 @@
+// app/dashboard/composants/Footer.tsx
 'use client'
 
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
+
+// Vos nouvelles couleurs
+const colors = {
+    primary: '#F5C505',
+    primaryDark: '#F3BB00',
+    secondary: '#1A05A2',
+    secondaryDark: '#03045F',
+    accent: '#340DA4',
+    accentDark: '#42009E',
+    goldLight: '#E1A624',
+    lightBg: '#F8F9FF'
+}
 
 export default function Footer() {
     const [currentYear, setCurrentYear] = useState<number | null>(null)
@@ -12,13 +25,14 @@ export default function Footer() {
     }, [])
 
     return (
-        <footer className="bg-gray-900 border-t border-gray-800 py-4 mt-auto">
-            <div className="container mx-auto px-4">
+        <footer className="py-3 sm:py-4 mt-auto border-t" style={{ backgroundColor: 'white', borderColor: `${colors.primary}20` }}>
+            <div className="container mx-auto px-3 sm:px-4">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5 }}
-                    className="py-6 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center text-sm text-gray-400"
+                    className="flex flex-col md:flex-row justify-between items-center text-xs sm:text-sm gap-3 md:gap-0"
+                    style={{ color: colors.accent }}
                 >
                     <motion.p
                         whileHover={{ scale: 1.05 }}
@@ -26,8 +40,6 @@ export default function Footer() {
                         className="flex items-center"
                     >
                         © {currentYear || '2024'} OGIAES. Tous droits réservés.
-
-                        {/* L'animation est maintenant dans un span, pas dans un div */}
                         <motion.span
                             animate={{
                                 scale: [1, 1.2, 1],
@@ -37,27 +49,30 @@ export default function Footer() {
                                 repeat: Infinity,
                                 repeatType: "reverse"
                             }}
-                            className="inline-block ml-1 w-1.5 h-1.5 bg-green-500 rounded-full"
+                            className="inline-block ml-1.5 w-1.5 h-1.5 rounded-full"
+                            style={{ backgroundColor: colors.primary }}
                         />
                     </motion.p>
 
-                    {/* Reste du code identique... */}
-                    <div className="flex space-x-6 mt-4 md:mt-0">
+                    <div className="flex space-x-4 sm:space-x-6">
                         <Link
                             href="/conditions"
-                            className="hover:text-green-400 transition-colors duration-200"
+                            className="transition-colors hover:opacity-80"
+                            style={{ color: colors.accent }}
                         >
                             Conditions
                         </Link>
                         <Link
                             href="/confidentialite"
-                            className="hover:text-green-400 transition-colors duration-200"
+                            className="transition-colors hover:opacity-80"
+                            style={{ color: colors.accent }}
                         >
                             Confidentialité
                         </Link>
                         <Link
                             href="/contact"
-                            className="hover:text-green-400 transition-colors duration-200"
+                            className="transition-colors hover:opacity-80"
+                            style={{ color: colors.accent }}
                         >
                             Contact
                         </Link>

@@ -141,7 +141,7 @@ export default function Header({ onMenuClick }: HeaderProps) {
             onClick={() => setShowProfile(!showProfile)}
             className="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-50 transition-colors"
           >
-            <div className="w-8 h-8 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center text-white font-semibold">
+            <div className="w-8 h-8 bg-linear-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center text-white font-semibold">
               A
             </div>
             <div className="text-left hidden md:block">

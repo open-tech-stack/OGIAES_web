@@ -4,7 +4,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { motion, AnimatePresence, Variants } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X, ChevronDown } from 'lucide-react'
 import Button from '../ui/Button'
 import Container from './Container'
@@ -13,6 +13,7 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
+  const [windowWidth, setWindowWidth] = useState(0)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -20,14 +21,17 @@ export default function Navbar() {
     }
 
     const handleResize = () => {
-      if (window.innerWidth >= 768) {
+      setWindowWidth(window.innerWidth)
+      if (window.innerWidth >= 1024) { // Changé de md à lg pour meilleur contrôle
         setIsOpen(false)
+        setActiveDropdown(null)
       }
     }
 
+    // Initialisation
+    handleResize()
     window.addEventListener('scroll', handleScroll)
     window.addEventListener('resize', handleResize)
-    handleResize()
 
     return () => {
       window.removeEventListener('scroll', handleScroll)
@@ -51,217 +55,50 @@ export default function Navbar() {
     { label: 'Contact', href: '/public/contact' }
   ]
 
-  // Couleurs du logo
   const colors = {
-    primary: '#1B3B4F',    // Bleu foncé du logo
-    secondary: '#D4AF37',  // Doré du logo
-    accent: '#2C5F7C',     // Bleu moyen
-    light: '#F5F0E6',      // Beige clair
-    dark: '#0A1A24',       // Bleu très foncé
+    primary: '#F5C505',
+    primaryDark: '#F3BB00',
+    secondary: '#1A05A2',
+    secondaryDark: '#03045F',
+    accent: '#340DA4',
+    accentDark: '#42009E',
+    goldLight: '#E1A624',
     white: '#FFFFFF',
-    gray: '#6B7280'
+    lightBg: '#F8F9FF'
   }
 
-  const navVariants: Variants = {
-    hidden: {
-      y: -100
-    },
-    visible: {
-      y: 0,
-      transition: {
-        type: "spring",
-        stiffness: 300,
-        damping: 30
-      }
-    }
-  }
-
-  const logoVariants: Variants = {
-    initial: {
-      scale: 0.8,
-      opacity: 0
-    },
-    animate: {
-      scale: 1,
-      opacity: 1,
-      transition: {
-        duration: 0.5,
-        ease: "easeOut"
-      }
-    },
-    hover: {
-      scale: 1.05,
-      transition: {
-        duration: 0.2
-      }
-    }
-  }
-
-  const menuItemVariants: Variants = {
-    initial: {
-      opacity: 0,
-      y: -20
-    },
-    animate: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.3
-      }
-    },
-    hover: {
-      scale: 1.05,
-      transition: {
-        duration: 0.2
-      }
-    }
-  }
-
-  const mobileMenuVariants: Variants = {
-    closed: {
-      opacity: 0,
-      height: 0,
-      transition: {
-        duration: 0.3,
-        when: "afterChildren" as const
-      }
-    },
-    open: {
-      opacity: 1,
-      height: "auto",
-      transition: {
-        duration: 0.4,
-        when: "beforeChildren" as const,
-        staggerChildren: 0.07
-      }
-    }
-  }
-
-  const mobileItemVariants: Variants = {
-    closed: {
-      opacity: 0,
-      x: -20
-    },
-    open: {
-      opacity: 1,
-      x: 0,
-      transition: {
-        duration: 0.3
-      }
-    }
-  }
-
-  const chevronVariants: Variants = {
-    closed: {
-      rotate: 0
-    },
-    open: {
-      rotate: 180,
-      transition: {
-        duration: 0.2
-      }
-    }
-  }
-
-  const dropdownVariants: Variants = {
-    hidden: {
-      opacity: 0,
-      y: 10,
-      scaleY: 0.8,
-      transition: {
-        duration: 0.2
-      }
-    },
-    visible: {
-      opacity: 1,
-      y: 0,
-      scaleY: 1,
-      transition: {
-        duration: 0.2
-      }
-    },
-    exit: {
-      opacity: 0,
-      y: 10,
-      scaleY: 0.8,
-      transition: {
-        duration: 0.2
-      }
-    }
-  }
-
-  const buttonIconVariants: Variants = {
-    initial: {
-      rotate: 90,
-      opacity: 0
-    },
-    animate: {
-      rotate: 0,
-      opacity: 1,
-      transition: {
-        duration: 0.2
-      }
-    },
-    exit: {
-      rotate: -90,
-      opacity: 0,
-      transition: {
-        duration: 0.2
-      }
-    }
-  }
-
-  const closeIconVariants: Variants = {
-    initial: {
-      rotate: -90,
-      opacity: 0
-    },
-    animate: {
-      rotate: 0,
-      opacity: 1,
-      transition: {
-        duration: 0.2
-      }
-    },
-    exit: {
-      rotate: 90,
-      opacity: 0,
-      transition: {
-        duration: 0.2
-      }
+  // Gestion du dropdown pour mobile/tablet
+  const handleMobileDropdown = (label: string) => {
+    if (windowWidth < 1024) {
+      setActiveDropdown(activeDropdown === label ? null : label)
     }
   }
 
   return (
     <motion.nav
-      variants={navVariants}
-      initial="hidden"
-      animate="visible"
-      className={cn(
-        'fixed top-0 w-full z-50 transition-all duration-500',
-        scrolled
-          ? `bg-[${colors.white}]/95 backdrop-blur-lg shadow-lg py-2`
-          : 'bg-transparent py-4',
-        isOpen && `bg-[${colors.white}]`
-      )}
-      style={{
-        backgroundColor: scrolled ? `${colors.white}F2` : 'transparent'
-      }}
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ type: "spring", stiffness: 300, damping: 30 }}
+      className={`fixed top-0 w-full z-50 transition-all duration-500 ${scrolled || isOpen
+          ? 'bg-white/95 backdrop-blur-lg shadow-xl py-2 sm:py-3'
+          : 'bg-transparent py-3 sm:py-4'
+        }`}
     >
       <Container>
-        <div className="flex items-center justify-between">
-          {/* Logo avec animation */}
+        <div className="flex items-center justify-between gap-2 sm:gap-4">
+          {/* Logo - Taille responsive */}
           <motion.div
-            variants={logoVariants}
-            initial="initial"
-            animate="animate"
-            whileHover="hover"
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            whileHover={{ scale: 1.05 }}
+            transition={{ duration: 0.3 }}
+            className="shrink-0"
           >
-            <Link href="/public/home" className="flex items-center space-x-3 group">
+            <Link href="/public/home" className="flex items-center">
               <motion.div
                 whileHover={{ rotate: 360 }}
-                transition={{ duration: 0.5 }}
-                className="relative w-20 h-15 overflow-hidden"
+                transition={{ duration: 0.6, ease: "easeInOut" }}
+                className="relative w-16 h-12 sm:w-20 sm:h-15 md:w-24 md:h-16 overflow-hidden"
               >
                 <Image
                   src="/images/logot.png"
@@ -274,116 +111,108 @@ export default function Navbar() {
             </Link>
           </motion.div>
 
-          {/* Desktop Menu avec animations */}
-          <div className="hidden md:flex items-center space-x-1">
-            {menuItems.map((item, index) => (
-              <motion.div
-                key={item.href}
-                variants={menuItemVariants}
-                initial="initial"
-                animate="animate"
-                custom={index}
-                transition={{ delay: index * 0.1 }}
-                className="relative"
-                onHoverStart={() => setActiveDropdown(item.label)}
-                onHoverEnd={() => setActiveDropdown(null)}
-              >
-                {item.dropdown ? (
-                  <>
-                    <button
-                      className="flex items-center space-x-1 px-4 py-2 transition-colors rounded-lg"
-                      style={{
-                        color: colors.primary,
-                      }}
-                      onMouseEnter={(e) => e.currentTarget.style.color = colors.secondary}
-                      onMouseLeave={(e) => e.currentTarget.style.color = colors.primary}
-                    >
-                      <span>{item.label}</span>
-                      <motion.div
-                        variants={chevronVariants}
-                        animate={activeDropdown === item.label ? "open" : "closed"}
+          {/* Desktop Menu - lg:flex au lieu de md:flex */}
+          <div className="hidden lg:flex items-center justify-center flex-1">
+            <div className="flex items-center space-x-1">
+              {menuItems.map((item, index) => (
+                <motion.div
+                  key={item.href}
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  className="relative"
+                  onHoverStart={() => windowWidth >= 1024 && setActiveDropdown(item.label)}
+                  onHoverEnd={() => windowWidth >= 1024 && setActiveDropdown(null)}
+                >
+                  {item.dropdown ? (
+                    <>
+                      <button
+                        className="flex items-center space-x-1 px-3 xl:px-4 py-2 rounded-lg transition-all duration-300 hover:bg-[#F8F9FF] group whitespace-nowrap"
+                        style={{ color: colors.secondary }}
+                        onClick={() => windowWidth < 1024 && handleMobileDropdown(item.label)}
                       >
-                        <ChevronDown size={16} />
-                      </motion.div>
-                    </button>
-
-                    <AnimatePresence>
-                      {activeDropdown === item.label && (
+                        <span className="font-medium text-sm xl:text-base group-hover:text-[#F5C505] transition-colors">
+                          {item.label}
+                        </span>
                         <motion.div
-                          variants={dropdownVariants}
-                          initial="hidden"
-                          animate="visible"
-                          exit="exit"
-                          className="absolute top-full left-0 mt-2 w-56 rounded-xl shadow-xl overflow-hidden"
-                          style={{
-                            backgroundColor: colors.white,
-                            borderColor: colors.light
-                          }}
+                          animate={{ rotate: activeDropdown === item.label ? 180 : 0 }}
+                          transition={{ duration: 0.2 }}
                         >
-                          {item.dropdown.map((subItem, idx) => (
-                            <motion.div
-                              key={subItem.href}
-                              initial={{ opacity: 0, x: -20 }}
-                              animate={{ opacity: 1, x: 0 }}
-                              transition={{ delay: idx * 0.05 }}
-                            >
-                              <Link
-                                href={subItem.href}
-                                className="block px-4 py-3 transition-colors"
-                                style={{ color: colors.primary }}
-                                onMouseEnter={(e) => {
-                                  e.currentTarget.style.backgroundColor = colors.light
-                                  e.currentTarget.style.color = colors.secondary
-                                }}
-                                onMouseLeave={(e) => {
-                                  e.currentTarget.style.backgroundColor = 'transparent'
-                                  e.currentTarget.style.color = colors.primary
-                                }}
-                              >
-                                {subItem.label}
-                              </Link>
-                            </motion.div>
-                          ))}
+                          <ChevronDown size={14} className="xl:size-4 group-hover:text-[#F5C505]" />
                         </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </>
-                ) : (
-                  <Link
-                    href={item.href}
-                    className="block px-4 py-2 transition-colors rounded-lg"
-                    style={{ color: colors.primary }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.backgroundColor = colors.light
-                      e.currentTarget.style.color = colors.secondary
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.backgroundColor = 'transparent'
-                      e.currentTarget.style.color = colors.primary
-                    }}
-                  >
-                    {item.label}
-                  </Link>
-                )}
-              </motion.div>
-            ))}
+                      </button>
+
+                      <AnimatePresence>
+                        {activeDropdown === item.label && (
+                          <motion.div
+                            initial={{ opacity: 0, y: 10, scaleY: 0.8 }}
+                            animate={{ opacity: 1, y: 0, scaleY: 1 }}
+                            exit={{ opacity: 0, y: 10, scaleY: 0.8 }}
+                            transition={{ duration: 0.2 }}
+                            className="absolute top-full left-0 mt-2 w-48 xl:w-56 rounded-xl shadow-xl overflow-hidden border border-[#F5C505]/10"
+                            style={{ backgroundColor: colors.white }}
+                          >
+                            {item.dropdown.map((subItem, idx) => (
+                              <motion.div
+                                key={subItem.href}
+                                initial={{ opacity: 0, x: -20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ delay: idx * 0.05 }}
+                              >
+                                <Link
+                                  href={subItem.href}
+                                  className="block px-4 py-2.5 xl:py-3 text-sm xl:text-base transition-all duration-300 hover:pl-6"
+                                  style={{
+                                    color: colors.secondary,
+                                    borderLeft: '3px solid transparent'
+                                  }}
+                                  onMouseEnter={(e) => {
+                                    e.currentTarget.style.backgroundColor = '#F8F9FF'
+                                    e.currentTarget.style.color = colors.primary
+                                    e.currentTarget.style.borderLeftColor = colors.primary
+                                  }}
+                                  onMouseLeave={(e) => {
+                                    e.currentTarget.style.backgroundColor = 'transparent'
+                                    e.currentTarget.style.color = colors.secondary
+                                    e.currentTarget.style.borderLeftColor = 'transparent'
+                                  }}
+                                >
+                                  {subItem.label}
+                                </Link>
+                              </motion.div>
+                            ))}
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </>
+                  ) : (
+                    <Link
+                      href={item.href}
+                      className="block px-3 xl:px-4 py-2 rounded-lg transition-all duration-300 hover:bg-[#F8F9FF] font-medium text-sm xl:text-base whitespace-nowrap"
+                      style={{ color: colors.secondary }}
+                      onMouseEnter={(e) => e.currentTarget.style.color = colors.primary}
+                      onMouseLeave={(e) => e.currentTarget.style.color = colors.secondary}
+                    >
+                      {item.label}
+                    </Link>
+                  )}
+                </motion.div>
+              ))}
+            </div>
           </div>
 
-          {/* Desktop Actions avec animations */}
+          {/* Desktop Actions - lg:flex au lieu de md:flex */}
           <motion.div
-            className="hidden md:flex items-center space-x-3"
+            className="hidden lg:flex items-center space-x-2 xl:space-x-3 shrink-0"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.5, duration: 0.3 }}
+            transition={{ delay: 0.5 }}
           >
             <Link href="/auth/login">
               <Button
                 variant="ghost"
-                className="hover:scale-105 transition-transform"
-                style={{
-                  color: colors.primary,
-                  '--hover-color': colors.secondary
-                } as any}
+                className="hover:scale-105 transition-all duration-300 font-medium text-sm xl:text-base px-3 xl:px-4 py-2 hover:bg-[#F8F9FF]"
+                style={{ color: colors.secondary }}
               >
                 Se connecter
               </Button>
@@ -394,12 +223,11 @@ export default function Navbar() {
                 whileTap={{ scale: 0.95 }}
               >
                 <Button
-                  className="shadow-lg"
+                  className="shadow-lg font-medium text-sm xl:text-base px-3 xl:px-4 py-2 whitespace-nowrap"
                   style={{
-                    backgroundColor: colors.secondary,
-                    color: colors.white,
-                    '--hover-bg': colors.primary
-                  } as any}
+                    background: `linear-gradient(135deg, ${colors.primary} 0%, ${colors.goldLight} 100%)`,
+                    color: colors.secondaryDark
+                  }}
                 >
                   S'inscrire
                 </Button>
@@ -407,96 +235,130 @@ export default function Navbar() {
             </Link>
           </motion.div>
 
-          {/* Mobile Menu Button avec animation */}
+          {/* Mobile/Tablet Menu Button - lg:hidden au lieu de md:hidden */}
           <motion.button
             whileTap={{ scale: 0.9 }}
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 rounded-lg relative z-50"
-            style={{ color: colors.primary }}
+            className="lg:hidden p-2 rounded-lg relative z-50 hover:bg-[#F8F9FF] transition-colors"
+            style={{ color: colors.secondary }}
             aria-label="Menu"
           >
             <AnimatePresence mode="wait">
               {isOpen ? (
                 <motion.div
                   key="close"
-                  variants={closeIconVariants}
-                  initial="initial"
-                  animate="animate"
-                  exit="exit"
+                  initial={{ rotate: -90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: 90, opacity: 0 }}
+                  transition={{ duration: 0.2 }}
                 >
-                  <X size={24} />
+                  <X size={24} className="sm:size-28" />
                 </motion.div>
               ) : (
                 <motion.div
                   key="menu"
-                  variants={buttonIconVariants}
-                  initial="initial"
-                  animate="animate"
-                  exit="exit"
+                  initial={{ rotate: 90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: -90, opacity: 0 }}
+                  transition={{ duration: 0.2 }}
                 >
-                  <Menu size={24} />
+                  <Menu size={24} className="sm:size-28" />
                 </motion.div>
               )}
             </AnimatePresence>
           </motion.button>
         </div>
 
-        {/* Mobile Menu amélioré */}
+        {/* Mobile/Tablet Menu Amélioré */}
         <AnimatePresence>
           {isOpen && (
             <motion.div
-              variants={mobileMenuVariants}
-              initial="closed"
-              animate="open"
-              exit="closed"
-              className="md:hidden overflow-hidden"
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+              className="lg:hidden overflow-hidden"
             >
-              <motion.div className="py-6 space-y-2">
+              <motion.div
+                className="py-4 sm:py-6 space-y-2 max-h-[80vh] overflow-y-auto"
+                initial="closed"
+                animate="open"
+                exit="closed"
+                variants={{
+                  open: { transition: { staggerChildren: 0.07 } },
+                  closed: { transition: { staggerChildren: 0.05, staggerDirection: -1 } }
+                }}
+              >
                 {menuItems.map((item) => (
                   <motion.div
                     key={item.href}
-                    variants={mobileItemVariants}
+                    variants={{
+                      open: { opacity: 1, x: 0 },
+                      closed: { opacity: 0, x: -20 }
+                    }}
                   >
                     {item.dropdown ? (
                       <div className="space-y-2">
-                        <div
-                          className="px-4 py-2 font-semibold"
-                          style={{ color: colors.primary }}
+                        <button
+                          onClick={() => handleMobileDropdown(item.label)}
+                          className="w-full flex items-center justify-between px-4 py-3 rounded-lg transition-all duration-300 hover:bg-[#F8F9FF]"
+                          style={{ color: colors.secondary }}
                         >
-                          {item.label}
-                        </div>
-                        {item.dropdown.map((subItem) => (
-                          <Link
-                            key={subItem.href}
-                            href={subItem.href}
-                            className="block pl-8 py-2 rounded-lg transition-colors"
-                            style={{ color: colors.primary }}
-                            onMouseEnter={(e) => {
-                              e.currentTarget.style.backgroundColor = colors.light
-                              e.currentTarget.style.color = colors.secondary
-                            }}
-                            onMouseLeave={(e) => {
-                              e.currentTarget.style.backgroundColor = 'transparent'
-                              e.currentTarget.style.color = colors.primary
-                            }}
-                            onClick={() => setIsOpen(false)}
+                          <span className="font-semibold text-base sm:text-lg">
+                            {item.label}
+                          </span>
+                          <motion.div
+                            animate={{ rotate: activeDropdown === item.label ? 180 : 0 }}
+                            transition={{ duration: 0.2 }}
                           >
-                            {subItem.label}
-                          </Link>
-                        ))}
+                            <ChevronDown size={18} />
+                          </motion.div>
+                        </button>
+
+                        <AnimatePresence>
+                          {activeDropdown === item.label && (
+                            <motion.div
+                              initial={{ opacity: 0, height: 0 }}
+                              animate={{ opacity: 1, height: "auto" }}
+                              exit={{ opacity: 0, height: 0 }}
+                              transition={{ duration: 0.2 }}
+                              className="overflow-hidden pl-4"
+                            >
+                              {item.dropdown.map((subItem) => (
+                                <Link
+                                  key={subItem.href}
+                                  href={subItem.href}
+                                  className="block pl-4 py-2.5 sm:py-3 rounded-lg transition-all duration-300 hover:pl-6 text-sm sm:text-base"
+                                  style={{ color: colors.secondary }}
+                                  onMouseEnter={(e) => {
+                                    e.currentTarget.style.backgroundColor = '#F8F9FF'
+                                    e.currentTarget.style.color = colors.primary
+                                  }}
+                                  onMouseLeave={(e) => {
+                                    e.currentTarget.style.backgroundColor = 'transparent'
+                                    e.currentTarget.style.color = colors.secondary
+                                  }}
+                                  onClick={() => setIsOpen(false)}
+                                >
+                                  {subItem.label}
+                                </Link>
+                              ))}
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
                       </div>
                     ) : (
                       <Link
                         href={item.href}
-                        className="block px-4 py-3 rounded-lg transition-colors"
-                        style={{ color: colors.primary }}
+                        className="block px-4 py-3 sm:py-4 rounded-lg transition-all duration-300 hover:pl-6 text-base sm:text-lg"
+                        style={{ color: colors.secondary }}
                         onMouseEnter={(e) => {
-                          e.currentTarget.style.backgroundColor = colors.light
-                          e.currentTarget.style.color = colors.secondary
+                          e.currentTarget.style.backgroundColor = '#F8F9FF'
+                          e.currentTarget.style.color = colors.primary
                         }}
                         onMouseLeave={(e) => {
                           e.currentTarget.style.backgroundColor = 'transparent'
-                          e.currentTarget.style.color = colors.primary
+                          e.currentTarget.style.color = colors.secondary
                         }}
                         onClick={() => setIsOpen(false)}
                       >
@@ -507,31 +369,32 @@ export default function Navbar() {
                 ))}
 
                 <motion.div
-                  variants={mobileItemVariants}
-                  className="pt-6 space-y-3"
-                  style={{ borderColor: colors.light }}
+                  variants={{
+                    open: { opacity: 1, x: 0 },
+                    closed: { opacity: 0, x: -20 }
+                  }}
+                  className="pt-4 sm:pt-6 space-y-3 border-t mt-4"
+                  style={{ borderColor: '#F5C50520' }}
                 >
-                  <Link href="/auth/login" className="block" onClick={() => setIsOpen(false)}>
+                  <Link href="/auth/login" onClick={() => setIsOpen(false)}>
                     <Button
                       variant="outline"
-                      className="w-full hover:scale-[1.02] transition-transform"
+                      className="w-full hover:scale-[1.02] transition-all duration-300 py-3 text-base"
                       style={{
-                        color: colors.primary,
-                        borderColor: colors.primary,
-                        '--hover-bg': colors.light
-                      } as any}
+                        color: colors.secondary,
+                        borderColor: colors.secondary,
+                      }}
                     >
                       Se connecter
                     </Button>
                   </Link>
-                  <Link href="/auth/register" className="block" onClick={() => setIsOpen(false)}>
+                  <Link href="/auth/register" onClick={() => setIsOpen(false)}>
                     <Button
-                      className="w-full hover:scale-[1.02] transition-transform shadow-lg"
+                      className="w-full hover:scale-[1.02] transition-all duration-300 shadow-lg py-3 text-base"
                       style={{
-                        backgroundColor: colors.secondary,
-                        color: colors.white,
-                        '--hover-bg': colors.primary
-                      } as any}
+                        background: `linear-gradient(135deg, ${colors.primary} 0%, ${colors.goldLight} 100%)`,
+                        color: colors.secondaryDark
+                      }}
                     >
                       S'inscrire
                     </Button>
@@ -544,8 +407,4 @@ export default function Navbar() {
       </Container>
     </motion.nav>
   )
-}
-
-function cn(...classes: any[]) {
-  return classes.filter(Boolean).join(' ')
 }
